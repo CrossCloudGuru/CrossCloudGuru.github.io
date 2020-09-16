@@ -4,7 +4,7 @@ This article will describe in detail the build-up of the script I have created d
 
 Here is a list of articles related to this project in order to achieve a working environment:
 
-1. Preparing the server - [Setup PXE and NFS on PiServer](https://crosscloud.guru/archives/1053 "Setup PXE and NFS on PiServer")
+1. Preparing the server - [Setup PXE and NFS on PiServer](https://crosscloud.guru/archives/1124 "Setup PXE and NFS on PiServer")
 
 2. Preparing the guest OS configurations - Prepare netboot OS environment for Raspberry Pi’s
 3. Enable the Raspberry Pi's for booting over the network - (under construction)
