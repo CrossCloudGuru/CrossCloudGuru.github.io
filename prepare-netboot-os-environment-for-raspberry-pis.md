@@ -1,4 +1,4 @@
-This second article in the series is about preparing the server side for each of the Raspberry Pi's that will boot over the network. The architecture principle that I have defined is that each Raspberry Pi will get it's own unique and isolated configuration.
+THIS second article in the series is about preparing the server side for each of the Raspberry Pi's that will boot over the network. The architecture principle that I have defined is that each Raspberry Pi will get it's own unique and isolated configuration.
 
 This article will describe in detail the build-up of the script I have created during my testing to make it work. A scripted approach helps me automate the steps required to create a repeatable solution. Going over all the steps in the script will provide you a full understanding of my reasoning behind these steps to.
 
