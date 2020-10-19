@@ -1,4 +1,4 @@
 title: Welcome to CrossCloud.Guru on GitHub!
-description: Check out my home page at https://CrossCloud.Guru too
+#description: Check out my home page at https://CrossCloud.Guru too
 
-theme: jekyll-theme-hacker
+remote_theme: "mmistakes/minimal-mistakes@4.20.2"
