@@ -5,11 +5,11 @@ title: "About"
 
 ### [Blog]
 
-CrossCloud.Guru is a personal blog about everything cloud computing maintained by Marco Tijbout. The articles have a primary focuses from the computing infrastructure up on the everyday tasks of an Solution Architect or administrator working with cloud technologies. In addition to these topics, Marco also provides many tips and tricks learned from various projects he worked on.
+CrossCloud.Guru is a personal blog about everything cloud computing maintained by Marco Tijbout. The articles have a primary focuses from the computing infrastructure up and the everyday tasks of a Solution Architect or DevOps Engineer working with cloud technologies. The primary goal of this blog is to share the knowledge gained learned from noumerous engagements he worked on.
 
 ### [Author]
 
-Many years of working in service delivery of computing infrastructure technologies, helping customer on their yourney into the cloud and software defined data centers (SDDCs), make Marco learn many tricks in the trade.
+Many years of working in service delivery of computing infrastructure technologies, helping customer on their yourney into the cloud and software defined data centers (SDDCs), made Marco learn the many tricks of the trade.
 
 ### [Privacy Policy]
 
