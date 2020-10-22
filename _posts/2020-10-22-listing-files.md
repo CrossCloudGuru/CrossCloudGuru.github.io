@@ -1,7 +1,7 @@
 ---
 title: "Quick Tip: Listing files in directory in one column"
 categories:
-  - Blog
+  - tips
 tags:
   - bash
   - linux

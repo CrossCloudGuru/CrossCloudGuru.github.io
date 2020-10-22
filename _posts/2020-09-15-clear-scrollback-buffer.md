@@ -3,9 +3,10 @@ title: "How to stop clear from clearing scrollback buffer"
 date: 2020-09-15T15:15:00-04:00
 categories:
   - blog
+  - tutorial
 tags:
   - bash
-  - linux 
+  - linux
 ---
 
 This is a scripted version from my previous article Avoid clear to clear scrollback buffer of the terminal. The breakdown of this script will be discussed in this post.
