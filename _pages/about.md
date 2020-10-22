@@ -4,7 +4,6 @@ title: "About"
 author_profile: true
 ---
 
-
 ### [Blog]
 
 CrossCloud.Guru is a personal blog about everything cloud computing maintained by Marco Tijbout. The articles have a primary focuses from the computing infrastructure up to the cloud and the everyday tasks of a Solution Architect or DevOps Engineer working with cloud technologies. The primary goal of this blog is to share the knowledge learned from working noumerous engagements.
