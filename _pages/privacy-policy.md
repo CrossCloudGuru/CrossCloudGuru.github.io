@@ -1,7 +1,10 @@
 ---
 permalink: /privacy/
 title: "Privacy Policy"
+layout: posts
+author_profile: true
 ---
+
 
 ## Who we are
 
