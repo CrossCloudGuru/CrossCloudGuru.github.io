@@ -1,5 +1,6 @@
 ---
-title: "Quick Tip: Listing files in directory in one column"
+title: "Listing files in directory in one column"
+last_modified_at: 2020-10-23T00:25:02+05:00
 categories:
   - tips
 tags:
