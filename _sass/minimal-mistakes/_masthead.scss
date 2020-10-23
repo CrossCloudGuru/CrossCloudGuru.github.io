@@ -25,7 +25,7 @@
     justify-content: space-between;
     font-family: $sans-serif-narrow;
 
-    @include breakpoint($2x-large) {
+    @include breakpoint($x-large) {
       max-width: $max-width;
     }
 
