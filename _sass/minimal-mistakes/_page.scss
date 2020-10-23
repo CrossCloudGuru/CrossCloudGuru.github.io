@@ -36,13 +36,13 @@ body {
 }
 
 .page {
-  @include breakpoint($large) {
+  @include breakpoint($2x-large) {
     float: right;
     width: calc(100% - #{$right-sidebar-width-narrow});
     padding-right: $right-sidebar-width-narrow;
   }
 
-  @include breakpoint($x-large) {
+  @include breakpoint($3x-large) {
     width: calc(100% - #{$right-sidebar-width});
     padding-right: $right-sidebar-width;
   }
@@ -187,8 +187,8 @@ body {
       padding-left: 1em;
       padding-right: 1em;
 
-      @include breakpoint($x-large) {
-        max-width: $x-large;
+      @include breakpoint($2x-large) {
+        max-width: $2x-large;
       }
     }
 
@@ -511,12 +511,12 @@ body {
   padding-top: 1em;
   border-top: 1px solid $border-color;
 
-  @include breakpoint($large) {
+  @include breakpoint($2x-large) {
     float: right;
     width: calc(100% - #{$right-sidebar-width-narrow});
   }
 
-  @include breakpoint($x-large) {
+  @include breakpoint($3x-large) {
     width: calc(100% - #{$right-sidebar-width});
   }
 
@@ -538,21 +538,21 @@ body {
 
 .wide {
   .page {
-    @include breakpoint($large) {
+    @include breakpoint($2x-large) {
       padding-right: 0;
     }
 
-    @include breakpoint($x-large) {
+    @include breakpoint($3x-large) {
       padding-right: 0;
     }
   }
 
   .page__related {
-    @include breakpoint($large) {
+    @include breakpoint($2x-large) {
       padding-right: 0;
     }
 
-    @include breakpoint($x-large) {
+    @include breakpoint($3x-large) {
       padding-right: 0;
     }
   }
