@@ -9,6 +9,7 @@ categories:
 tags:
   - bash
   - rpi
+  - netboot
 ---
 
 This thrird article is about enabling the Raspberry Pi to boot over the network. As I wanted to test with both my Raspberry Pi versions 3 and 4, I created a script that detects the type and run the specific required steps for the enablement.
