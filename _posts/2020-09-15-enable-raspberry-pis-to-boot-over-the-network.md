@@ -1,5 +1,5 @@
 ---
-title: "How to stop clear from clearing scrollback buffer"
+title: "Enable Raspberry Pi's to boot over the network"
 date: 2020-09-15T15:14:00-04:00
 excerpt_separator: "<!--more-->"
 classes: wide
