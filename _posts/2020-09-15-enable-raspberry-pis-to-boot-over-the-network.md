@@ -1,13 +1,13 @@
 ---
 title: "How to stop clear from clearing scrollback buffer"
-date: 2020-09-15T15:15:00-04:00
+date: 2020-09-15T15:14:00-04:00
 classes: wide
 categories:
   - blog
   - tutorial
 tags:
   - bash
-  - linux
+  - rpi
 ---
 
 This is a scripted version from my previous article Avoid clear to clear scrollback buffer of the terminal. The breakdown of this script will be discussed in this post.
