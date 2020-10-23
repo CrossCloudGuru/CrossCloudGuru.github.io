@@ -1,6 +1,7 @@
 ---
 title: "How to stop clear from clearing scrollback buffer"
 date: 2020-09-15T15:14:00-04:00
+excerpt_separator: "<!--more-->"
 classes: wide
 categories:
   - blog
@@ -10,131 +11,278 @@ tags:
   - rpi
 ---
 
-This is a scripted version from my previous article Avoid clear to clear scrollback buffer of the terminal. The breakdown of this script will be discussed in this post.
+This thrird article is about enabling the Raspberry Pi to boot over the network. As I wanted to test with both my Raspberry Pi versions 3 and 4, I created a script that detects the type and run the specific required steps for the enablement.
 
-Below I will go step by step through the script. At the bottom of the article you can find the whole script.
+<!--more-->
 
-## The script step by step
+**DISCLAIMER**: This article discusses the usage of Beta firmware for the Raspberry Pi 4. Use at your own risk.
 
-**Step 1.** Store the current date and time for consumption
+You could argue if this script is actually the second step in the project as it also collects required information that is required to setup the server side OS environment for this Raspberry Pi the script is executed on.
 
-```bash
-# Current date and time of script execution
-DATETIME=`date +%Y%m%d_%H%M&`
-```
+Also worth knowing is that booting over the network is only possible with Raspberry Pi 3B Plus or 4B. I figured this out the hard way. That is the reason that I build a test in this script to see what type of Pi we are dealing with.
 
-**Step 2.** Display terminal type
+During testing and creating this script it evolved into this multi-parted script. The script has five parts:
 
-```bash
-# Display current terminal type:
-echo $TERM
-```
+* 1 part general stuff - The system needs to be updated to acquire the required latest files.
+* 3 parts functions - The parts that do the actual work
+* 1 part logic - The selector to what functions need to be executed based on the type of the Raspberry Pi
 
-Always nice to see what we have got.
-Output:
+Let me take you through all the parts in chronological order. Bash scripts are fully read into memory before the actual execution starts. Here we go.
 
-```bash
-$ echo $TERM
-xterm-256color
-```
-**Step 3.** Backup the current terminal settings in a backup file
+### The script explained in chunks
+
+**Part 1.** General - Updating the system
+
 
 ```bash
-# Store the current terminal settings in a backup file
-infocmp -x $TERM > terminal-settings.backup-${DATETIME}
+## Update and upgrade the rPI 
+sudo apt update && sudo apt -y full-upgrade
 ```
 
-**Step 4.** Create second copy to work with
+**Part 2.** Function - `collectPIDetails ()`
+
+This function collects information about the system we need and store it in the `hardwareInfo.txt` file. Amongst other details it stores the last 8 characters of the serial number that the Pi uses to uniquely identify itself to the PiServer to get it's configuration.  
+As it is also possible to use the MAC address as unique identifier, it converts the MAC address of the ethernet port to the format the TFTP server can consume it. Meaning the : (colons) are replaced with - (hyphens).
 
 ```bash
-# Store the current terminal settings in a file to work with
-infocmp -x $TERM > terminal-settings.new-${DATETIME}
+collectPIDetails() {
+    ## Collect system information and store in a file
+    cat /proc/cpuinfo | grep Model > hardwareInfo.txt
+    cat /proc/cpuinfo | grep Serial >> hardwareInfo.txt
+    cat /proc/cpuinfo | grep Hardware >> hardwareInfo.txt
+    cat /proc/cpuinfo | grep Revision >> hardwareInfo.txt
+
+    MAC_ETH=$(cat /sys/class/net/eth0/address)
+    echo "MAC eth0        : $MAC_ETH" >> hardwareInfo.txt
+
+    # Convert the MAC address to a string consumable by the TFTP boot process
+    MAC_ETH1="$(tr ":" - <<<$MAC_ETH)"
+    echo "MAC eth0 (TFTP) : $MAC_ETH1" >> hardwareInfo.txt
+
+    MAC_WLN=$(cat /sys/class/net/wlan0/address)
+    echo "MAC wlan0       : $MAC_WLN" >> hardwareInfo.txt
+
+    SERIALNR=$(cat /proc/cpuinfo | grep Serial)
+    echo "Netboot serial  : ${SERIALNR:(-8)}" >> hardwareInfo.txt
+
+    cat hardwareInfo.txt
+}
 ```
 
-**Step 5.**
-From this point it gets a little more tricky.
+**Part 3.** Funcion - `preparePI3Bp()`
 
-If you type `man clear` you will see that the manual states:
+This function takes care of the Raspberry Pi 3B Plus systems. What it does is:
 
-> clear clears your screen if this is possible, including its scrollback buffer (if the extended “E3” capability is defined).
-
-We are going to remove this E3 capability and we store the specific string in a variable. The command `sed` recognizes the characters `\` and `[` as special characters and need to be escaped with an additional `\` to take the characters in the string literally.
+* It retrieves the value in the boot mechanism that specifies if `netboot` is enabled or not. The value for when it is enabled is stored in `OPT_NETBOOT`.
+* The if statement checks the value from the system stored in `OPT_VALUE` with the value in the `OPT_NETBOOT` to see if it is already enabled for netboot or not.
+* If the values match the Raspberry Pi is already enabled for booting over the network. The script exits here.
+* If the value does not match an additional line is added to the `/boot/config.txt` to enable the Pi.
+* Next the script wil exit and the Raspberry Pi needs to be rebooted to make the actual change.
 
 ```bash
-# Store the value to search for in variable
-# We need to remove the string: 'E3=\E[3J, ' but it contains the \ and [ special
-# characters. These need to be escaped with an extra \
-VALUE='E3=\\E\[3J, '
+preparePI3Bp() {
+    ## Configuring the Raspberry Pi 3 Model B Plus for PXE booting
+
+    # Check if Pi is already configured
+    OTP_VALUE=$(vcgencmd otp_dump | grep 17:)
+    OTP_NETBOOT="17:3020000a"
+
+    if  [[ ${OTP_VALUE} == ${OTP_NETBOOT} ]] ; then
+        echo -e "\nThis Raspberry Pi 3B Plus is already Netboot enabled."
+        exit 0
+    else
+        echo -e "\nPrepare the Raspberry Pi 3B Plus to enable Netboot."
+        echo program_usb_boot_mode=1 | sudo tee -a /boot/config.txt
+        echo -e "\nReboot required. Please reboot the Raspberry Pi"
+    fi
+}
 ```
 
-**Step 6.** Search for and remove the string that controls the capability
+**Part 4.** Function - `preparePI4()`
+This function is specific for the Raspberry Pi 4. As booting over the network is in BETA, the BETA firmware needs to be loaded in the EEPROM of the Pi.
 
-Now that we are on the topic how sed handles special characters, it is also a challenge to work with variables. In this case the variable is incorporated and with the additional escaped characters in the variable it will consume the string to search for as we want it to.
+For this article I use the beta firmware that is released on 31st of July 2020. This specific version is specified in the PI_EEPROM_VERSION variable.
+If you want to check if there are any newer versions, check here: [Online Raspberry Pi BETA firmwares](https://github.com/raspberrypi/rpi-eeprom/tree/master/firmware/beta)
+
+
+So what happens here is:
+
+* The version of the firmware to use is stored in `PI_EEPROM_VERSION`
+* Next this specified version is downloaded from the Raspberry Pi GitHub repository. (After updating the system it is actually also present on the Pi itself)
+* Next the configuration information from the firmware is extracted to `bootconf.txt`
+* In this extracted configuration the value to enable netboot is changed to `0x21`
+* Next a customized firmware package is created with the modified configuration file.
+* Finally the modified firmware is presented to the system to be applied at the next boot. A message will display that you need to reboot the Raspberry Pi.
 
 ```bash
-# Search for variable in file and remove it from file
-sed -i '/'"$VALUE"'/s///g' terminal-settings.new-${DATETIME}
+preparePI4() {
+    ## Configuring the Raspberry Pi 4 Model B for PXE booting
+
+    ## Specify latest beta eeprom firmware
+    PI_EEPROM_VERSION=pieeprom-2020-07-31
+
+    # Donwload the beta eeprom firmware
+    wget https://github.com/raspberrypi/rpi-eeprom/raw/master/firmware/beta/${PI_EEPROM_VERSION}.bin
+    sudo rpi-eeprom-config ${PI_EEPROM_VERSION}.bin > bootconf.txt
+    sed -i 's/BOOT_ORDER=.*/BOOT_ORDER=0x21/g' bootconf.txt
+    sudo rpi-eeprom-config --out ${PI_EEPROM_VERSION}-netboot.bin --config bootconf.txt ${PI_EEPROM_VERSION}.bin
+    sudo rpi-eeprom-update -d -f ./${PI_EEPROM_VERSION}-netboot.bin
+}
 ```
 
-**Step 7.** Load the settings into the configuration
-The now modified file needs to be loades as the new settings.
+**Part 5.** The script's logic
 
-```bash 
-# Load modified termininfo and store it
-sudo tic -x terminal-settings.new-${DATETIME}
+This part is the brains of the script. What it does is:
+
+* Retrieve the model name of the current Raspberry Pi and store it in the variable `CURRENT_PI`
+* Store the most likely to use Raspberry Pi model names in separate variables to check against
+* Next it calls the function collectPIDetails to collect information about this Pi and store it in the file `hardwareInfo.txt` for later usage.
+* The next part checks agains the possible options stored and the retrieved model name. Based on the match, it will call the respective function to prepare the system.
+
+```bash
+################################################################################
+## Script Logic
+
+## Determine model of Raspberry Pi
+CURRENT_PI=$(cat /proc/cpuinfo | grep Model)
+#echo $CURRENT_PI
+PI_4B="Raspberry Pi 4 Model B"
+PI_3Bp="Raspberry Pi 3 Model B Plus"
+PI_3B="Raspberry Pi 3 Model B Rev"
+
+# Call function to store information about the Raspberry Pi for later consumption
+collectPIDetails
+
+# Select what to do based on type of Raspberry Pi
+case $CURRENT_PI in
+    *${PI_3B}* )
+        echo -e "\nThis is a ${PI_3B}"
+        ;;
+    *${PI_3Bp}* )
+        echo -e "\nThis is a ${PI_3Bp}"
+        preparePI3Bp
+        ;;
+    *${PI_4B}* )
+        echo -e "\nThis is a ${PI_4B}"
+        preparePI4
+        ;;
+    * )
+        echo -e "Raspberry Pi is not identified";;
+esac
 ```
 
-**Step 8.** Restart the terminal to take changes into effect.
-Once back with a new fresh terminal session you will keep your whole screen history even when you type `clear`.
+### Full Script
 
-## The full script
+When all is stitched together you get the full script as shown here:
 
 ```bash
 #!/usr/bin/env bash
 ################################################################################
-# Script name: keepScrollbackBuffer.sh
-# Version: 1
-# Author: Marco Tijbout - CrossCloud.Guru
-#
-# History:
-#   1 - Initial released version
-#
-# Purpose:
-#   Modify the terminal settings to avoid clear to clear the scrollback buffer
+# Script name: prepNetbootWorker.sh
+# Version: 1.0
 #
 # Usage:
-#   - Run this script on linux flavoured system with the bash shell.
-#   - Settings are set globally for the system. Remove sudo from 'sudo tic' to
-#   make it user bound.
-#
-# Improvement ideas:
-#   -
+#   This script needs to be executed on the Raspberry Pi itself.
 ################################################################################
 
-# Current date and time of script execution
-DATETIME=`date +%Y%m%d_%H%M`
+##
+## Worker Configuration
+##
 
-# Display current terminal type:
-echo $TERM
+################################################################################
+## General operations
 
-# Store the current terminal settings in a backup file
-infocmp -x $TERM > terminal-settings.backup-${DATETIME}
+## Update and upgrade the rPI
+sudo apt update && sudo apt -y full-upgrade
 
-# Store the current terminal settings in a file to work with
-infocmp -x $TERM > terminal-settings.new-${DATETIME}
+################################################################################
+## Script Functions. Goes before the Script Logic
 
-# Store the value to search for in variable
-# We need to remove the string: 'E3=\E[3J, ' but it contains the \ and [ special
-# characters. These need to be escaped with an extra \
-VALUE='E3=\\E\[3J, '
+collectPIDetails() {
+    ## Collect system information and store in a file
+    cat /proc/cpuinfo | grep Model > hardwareInfo.txt
+    cat /proc/cpuinfo | grep Serial >> hardwareInfo.txt
+    cat /proc/cpuinfo | grep Hardware >> hardwareInfo.txt
+    cat /proc/cpuinfo | grep Revision >> hardwareInfo.txt
 
-# Search for variable in file and remove it from file
-sed -i '/'"$VALUE"'/s///g' terminal-settings.new-${DATETIME}
+    MAC_ETH=$(cat /sys/class/net/eth0/address)
+    echo "MAC eth0        : $MAC_ETH" >> hardwareInfo.txt
 
-# Load modified termininfo and store it
-sudo tic -x terminal-settings.new-${DATETIME}
+    # Convert the MAC address to a string consumable by the TFTP boot process
+    MAC_ETH1="$(tr ":" - <<<$MAC_ETH)"
+    echo "MAC eth0 (TFTP) : $MAC_ETH1" >> hardwareInfo.txt
 
-# Restart the terminal to take changes into effect.
+    MAC_WLN=$(cat /sys/class/net/wlan0/address)
+    echo "MAC wlan0       : $MAC_WLN" >> hardwareInfo.txt
+
+    SERIALNR=$(cat /proc/cpuinfo | grep Serial)
+    echo "Netboot serial  : ${SERIALNR:(-8)}" >> hardwareInfo.txt
+
+    cat hardwareInfo.txt
+}
+
+preparePI3Bp() {
+    ## Configuring the Raspberry Pi 3 Model B Plus for PXE booting
+
+    # Check if Pi is already configured
+    OTP_VALUE=$(vcgencmd otp_dump | grep 17:)
+    OTP_NETBOOT="17:3020000a"
+
+    if  [[ ${OTP_VALUE} == ${OTP_NETBOOT} ]] ; then
+        echo -e "\nThis Raspberry Pi 3B Plus is already Netboot enabled."
+        exit 0
+    else
+        echo -e "\nPrepare the Raspberry Pi 3B Plus to enable Netboot."
+        echo program_usb_boot_mode=1 | sudo tee -a /boot/config.txt
+        echo -e "\nReboot required. Please reboot the Raspberry Pi"
+    fi
+}
+
+preparePI4() {
+    ## Configuring the Raspberry Pi 4 Model B for PXE booting
+
+    ## Specify latest beta eeprom firmware
+    PI_EEPROM_VERSION=pieeprom-2020-07-31
+
+    # Donwload the beta eeprom firmware
+    wget https://github.com/raspberrypi/rpi-eeprom/raw/master/firmware/beta/${PI_EEPROM_VERSION}.bin
+    sudo rpi-eeprom-config ${PI_EEPROM_VERSION}.bin > bootconf.txt
+    sed -i 's/BOOT_ORDER=.*/BOOT_ORDER=0x21/g' bootconf.txt
+    sudo rpi-eeprom-config --out ${PI_EEPROM_VERSION}-netboot.bin --config bootconf.txt ${PI_EEPROM_VERSION}.bin
+    sudo rpi-eeprom-update -d -f ./${PI_EEPROM_VERSION}-netboot.bin
+}
+
+################################################################################
+## Script Logic
+
+## Determine model of Raspberry Pi
+CURRENT_PI=$(cat /proc/cpuinfo | grep Model)
+#echo $CURRENT_PI
+PI_4B="Raspberry Pi 4 Model B"
+PI_3Bp="Raspberry Pi 3 Model B Plus"
+PI_3B="Raspberry Pi 3 Model B Rev"
+
+# Call function to store information about the Raspberry Pi for later consumption
+collectPIDetails
+
+# Select what to do based on type of Raspberry Pi
+case $CURRENT_PI in
+    *${PI_3B}* )
+        echo -e "\nThis is a ${PI_3B}"
+        ;;
+    *${PI_3Bp}* )
+        echo -e "\nThis is a ${PI_3Bp}"
+        preparePI3Bp
+        ;;
+    *${PI_4B}* )
+        echo -e "\nThis is a ${PI_4B}"
+        preparePI4
+        ;;
+    * )
+        echo -e "Raspberry Pi is not identified";;
+esac
 ```
+
+
 
 
