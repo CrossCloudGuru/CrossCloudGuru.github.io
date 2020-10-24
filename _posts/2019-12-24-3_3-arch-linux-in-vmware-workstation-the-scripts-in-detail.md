@@ -21,7 +21,8 @@ Now lets get into the details! For the impatient, the link to the full script is
 ### ArchInstallation.sh - Header
 
 ```bash
-#!/usr/bin/env bash ################################################################################ 
+#!/usr/bin/env bash 
+################################################################################ 
 # Filename: ArchInstallation.sh
 # Date Created: 21-dec-19
 # Date last update: 21-dec-19
