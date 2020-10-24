@@ -1,6 +1,8 @@
 ---
 permalink: /privacy/
 title: "Privacy Policy"
+layout: single
+toc: true
 author_profile: true
 ---
 
