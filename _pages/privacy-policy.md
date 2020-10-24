@@ -8,7 +8,7 @@ author_profile: true
 
 ## Who we are
 
-Our website address is: [https://crosscloud.guru](), owned by Marco Tijbout.
+The website address is: [https://crosscloud.guru](), owned by Marco Tijbout.
 
 
 
