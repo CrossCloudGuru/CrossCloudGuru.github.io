@@ -57,7 +57,8 @@ From this point it gets a little more tricky.
 
 If you type `man clear` you will see that the manual states:
 
-clear clears your screen if this is possible, including its scrollback buffer (if the extended “E3” capability is defined). {: .notice--info}
+clear clears your screen if this is possible, including its scrollback buffer (if the extended “E3” capability is defined).
+{: .notice--info}
 
 We are going to remove this E3 capability and we store the specific string in a variable. The command `sed` recognizes the characters `\` and `[` as special characters and need to be escaped with an additional `\` to take the characters in the string literally.
 
