@@ -33,7 +33,7 @@ Let me take you through all the parts in chronological order. Bash scripts are f
 
 ### The script explained in chunks
 
-**Part 1.** General - Updating the system
+#### Part 1. General - Updating the system
 
 
 ```bash
@@ -41,7 +41,7 @@ Let me take you through all the parts in chronological order. Bash scripts are f
 sudo apt update && sudo apt -y full-upgrade
 ```
 
-**Part 2.** Function - `collectPIDetails ()`
+#### Part 2. Function - `collectPIDetails ()`
 
 This function collects information about the system we need and store it in the `hardwareInfo.txt` file. Amongst other details it stores the last 8 characters of the serial number that the Pi uses to uniquely identify itself to the PiServer to get it's configuration.  
 As it is also possible to use the MAC address as unique identifier, it converts the MAC address of the ethernet port to the format the TFTP server can consume it. Meaning the : (colons) are replaced with - (hyphens).
@@ -71,7 +71,7 @@ collectPIDetails() {
 }
 ```
 
-**Part 3.** Funcion - `preparePI3Bp()`
+#### Part 3. Funcion - `preparePI3Bp()`
 
 This function takes care of the Raspberry Pi 3B Plus systems. What it does is:
 
@@ -100,7 +100,7 @@ preparePI3Bp() {
 }
 ```
 
-**Part 4.** Function - `preparePI4()`
+#### Part 4. Function - `preparePI4()`
 This function is specific for the Raspberry Pi 4. As booting over the network is in BETA, the BETA firmware needs to be loaded in the EEPROM of the Pi.
 
 For this article I use the beta firmware that is released on 31st of July 2020. This specific version is specified in the PI_EEPROM_VERSION variable.
@@ -132,7 +132,7 @@ preparePI4() {
 }
 ```
 
-**Part 5.** The script's logic
+#### Part 5. The script's logic
 
 This part is the brains of the script. What it does is:
 
