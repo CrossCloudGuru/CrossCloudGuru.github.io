@@ -1,8 +1,8 @@
 ---
 title: "About"
 permalink: /about/
-author_profile: true
 toc: true
+author_profile: true
 ---
 
 ### [Blog]
