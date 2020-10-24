@@ -6,5 +6,10 @@
 
 $link-color: red;
 
+::selection {
+    color: #fff;
+    background: rgb(84, 84, 84);
+  }
+
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @import "minimal-mistakes"; // main partials
