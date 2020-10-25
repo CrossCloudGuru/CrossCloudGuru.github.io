@@ -27,8 +27,31 @@ Use the latest hardware compatibility:
 
 ![VM for Arch - Virtual hardware compatibility]({{ site.url }}{{ site.baseurl }}/assets/images/articles/ArchVMConfig02.png)
 
-![ArchVMConfig01](https://raw.githubusercontent.com/CrossCloudGuru/CrossCloudGuru.github.io/master/assets/images/articles/ArchVMConfig01.png)
-![ArchVMConfig02](https://raw.githubusercontent.com/CrossCloudGuru/CrossCloudGuru.github.io/master/assets/images/articles/ArchVMConfig02.png)
+Select the ISO image of the latest Arch Linux release:
+
+![VM for Arch - Select ISO Image](https://raw.githubusercontent.com/CrossCloudGuru/CrossCloudGuru.github.io/master/assets/images/articles/ArchVMConfig03.png)
+
+Select for the Guest Operating system Linux with Other Linux 5.x or later kernel 64-bit:
+
+![ArchVMConfig04](https://raw.githubusercontent.com/CrossCloudGuru/CrossCloudGuru.github.io/master/assets/images/articles/ArchVMConfig04.png)
+
+Provide the name and location for the virtual machine:
+
+![ArchVMConfig05](https://raw.githubusercontent.com/CrossCloudGuru/CrossCloudGuru.github.io/master/assets/images/articles/ArchVMConfig05.png)
+
+Specify CPU and Cores to your needs. I keep it default here:
+
+![ArchVMConfig06](https://raw.githubusercontent.com/CrossCloudGuru/CrossCloudGuru.github.io/master/assets/images/articles/ArchVMConfig06.png)
+
+Defaults as for the memory:
+
+![ArchVMConfig07](https://raw.githubusercontent.com/CrossCloudGuru/CrossCloudGuru.github.io/master/assets/images/articles/ArchVMConfig07.png)
+
+Choose if your virtual machine should appear as a separate computer on your network or use NAT on the IP of your host pc. I keep the NAT setting:
+
+![ArchVMConfig08](https://raw.githubusercontent.com/CrossCloudGuru/CrossCloudGuru.github.io/master/assets/images/articles/ArchVMConfig08.png)
+
+
 
 ---
 
