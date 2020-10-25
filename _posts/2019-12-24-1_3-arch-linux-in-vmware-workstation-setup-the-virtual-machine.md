@@ -22,8 +22,13 @@ Configuration I use:
 
 Create a virtual machine that will hold the Arch Linux and take into account the following settings: Custom Virtual Machine Configuration:
 
+![VM for Arch - Custom Configuration]({{ site.url }}{{ site.baseurl }}/assets/images/articles/ArchVMConfig01.png)
 
-![VM for Arch - Custom Configuration]({{ site.url }}{{ site.baseurl }}/master/assets/images/articles/ArchVMConfig01.png)
+Use the latest hardware compatibility:
+
+![VM for Arch - Virtual hardware compatibility]({{ site.url }}{{ site.baseurl }}/assets/images/articles/ArchVMConfig02.png)
+
+
 
 ---
 
