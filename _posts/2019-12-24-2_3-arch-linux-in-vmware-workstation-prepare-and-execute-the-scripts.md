@@ -33,7 +33,22 @@ Now we can ssh into this virtual machine from our host machine:
 ssh root@172.16.157.183
 ```
 
-
-
 ![alt]({{ site.url }}{{ site.baseurl }}/assets/images/articles/ArchTerm01.png)
+
+If you want to time how long the installation script takes in your configuration, make sure your time is synchronized before running the script:
+
+```bash
+timedatectl set-ntp true
+```
+
+![alt]({{ site.url }}{{ site.baseurl }}/assets/images/articles/ArchTerm02.png)
+
+Download the latest repository files:
+
+```bash
+pacman -Sy
+```
+
+![alt]({{ site.url }}{{ site.baseurl }}/assets/images/articles/ArchTerm03.png)
+
 
