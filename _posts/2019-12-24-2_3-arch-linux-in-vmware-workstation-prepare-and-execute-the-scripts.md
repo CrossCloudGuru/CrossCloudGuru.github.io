@@ -148,3 +148,4 @@ Navigation:
 [The scripts in detail](https://blog.crosscloud.guru/blog/tutorial/3_3-arch-linux-in-vmware-workstation-the-scripts-in-detail)
 
 
+bla bla
