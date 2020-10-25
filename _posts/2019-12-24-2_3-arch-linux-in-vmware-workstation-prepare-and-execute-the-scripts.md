@@ -51,4 +51,13 @@ pacman -Sy
 
 ![alt]({{ site.url }}{{ site.baseurl }}/assets/images/articles/ArchTerm03.png)
 
+**Note:** I have omitted the option u as I do not want to update the live system.
+
+Install git:
+
+```bash
+pacman -S git
+```
+
+![alt]({{ site.url }}{{ site.baseurl }}/assets/images/articles/ArchTerm04.png)
 
