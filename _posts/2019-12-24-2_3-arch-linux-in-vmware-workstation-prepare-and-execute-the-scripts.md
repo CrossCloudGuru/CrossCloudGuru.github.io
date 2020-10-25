@@ -143,5 +143,5 @@ Navigation:
 * Overview
 * Article 1: Setup the virtual machine 
 * Article 2: Prepare and execute the scripts
-* Article 3: The scripts in detail
+* Article 3: [The scripts in detail]({{ site.baseurl }}{% post_url 2019-12-24-3_3-arch-linux-in-vmware-workstation-the-scripts-in-detail.md %})
 
