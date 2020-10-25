@@ -28,7 +28,8 @@ Use the latest hardware compatibility:
 
 ![VM for Arch - Virtual hardware compatibility]({{ site.url }}{{ site.baseurl }}/assets/images/articles/ArchVMConfig02.png)
 
-
+![ArchVMConfig01](https://raw.githubusercontent.com/CrossCloudGuru/CrossCloudGuru.github.io/master/assets/images/articles/ArchVMConfig01.png)
+![ArchVMConfig02](https://raw.githubusercontent.com/CrossCloudGuru/CrossCloudGuru.github.io/master/assets/images/articles/ArchVMConfig02.png)
 
 ---
 
