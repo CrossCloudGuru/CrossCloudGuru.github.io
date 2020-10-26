@@ -292,8 +292,10 @@ sudo reboot
 
 ## The full script
 
-In the below GitHub repository you can find both files discussed in this article
+In this GitHub repository you can find both files discussed in this article:  
 [CrossCloudGuru / netBootRPI repository](https://github.com/CrossCloudGuru/netBootRPI)
+
+## Next ...
 
 The next article in the series will describe the steps required to enable Raspberry Pi’s to boot over the network.  
 [Enable Raspberry Pi's to boot over the network]({% post_url 2020-09-15-enable-raspberry-pis-to-boot-over-the-network %})
