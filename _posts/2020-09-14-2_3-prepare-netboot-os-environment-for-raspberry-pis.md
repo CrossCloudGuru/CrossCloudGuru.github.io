@@ -292,8 +292,8 @@ sudo reboot
 
 ## The full script
 
-In this GitHub repository you can find both files discussed in this article:  
-[CrossCloudGuru / netBootRPI repository](https://github.com/CrossCloudGuru/netBootRPI)
+In this GitHub repository you can find the files discussed in this article:  
+[Git repository Netboot Pi scripts](https://github.com/CrossCloudGuru/NetbootPi)
 
 ---
 
