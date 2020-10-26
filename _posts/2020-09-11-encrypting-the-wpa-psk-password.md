@@ -10,7 +10,8 @@ categories:
 tags:
   - bash
   - rpi
-  - netboot
+  - wpa
+  - wifi
 ---
 
 There are a lot of things that can be done to make more difficult for people with malicious intent.
