@@ -98,7 +98,7 @@ sudo tail -f /var/log/daemon.log
 
 I hope you like the articles and learned something new.
 
-Navigation:  
+## Navigation:  
 
 <!-- - [Overview]({% post_url 2019-12-24-0_3-arch-linux-in-vmware-workstation-overview %}) -->
 - [[1/3] Netboot Pi - Setup PXE and NFS on PiServer]({% post_url 2020-09-14-1_3-setup-pxe-and-nfs-on-piserver %})
