@@ -13,278 +13,288 @@ tags:
   - netboot
 ---
 
-This thrird article is about enabling the Raspberry Pi to boot over the network. As I wanted to test with both my Raspberry Pi versions 3 and 4, I created a script that detects the type and run the specific required steps for the enablement.
+This second article in the series is about preparing the server side for each of the Raspberry Pi’s that will boot over the network. The architecture principle that I have defined is that each Raspberry Pi will get it’s own unique and isolated configuration.
 
-<!--more-->
+This article will describe in detail the build-up of the script I have created during my testing to make it work. A scripted approach helps me automate the steps required to create a repeatable solution. Going over all the steps in the script will provide you a full understanding of my reasoning behind these steps to.
 
-**DISCLAIMER**: This article discusses the usage of Beta firmware for the Raspberry Pi 4. Use at your own risk.
+Here is a list of articles related to this project in order to achieve a working environment:
 
-You could argue if this script is actually the second step in the project as it also collects required information that is required to setup the server side OS environment for this Raspberry Pi the script is executed on.
+1.  Preparing the server – Setup PXE and NFS on PiServer
+2.  Preparing the guest OS configurations – Prepare netboot OS environment for Raspberry Pi’s
+3.  Enable the Raspberry Pi’s for booting over the network – (under construction)
 
-Also worth knowing is that booting over the network is only possible with Raspberry Pi 3B Plus or 4B. I figured this out the hard way. That is the reason that I build a test in this script to see what type of Pi we are dealing with.
+## Requirements
 
-During testing and creating this script it evolved into this multi-parted script. The script has five parts:
+This scripted approach requires 2 files:
 
-* 1 part general stuff - The system needs to be updated to acquire the required latest files.
-* 3 parts functions - The parts that do the actual work
-* 1 part logic - The selector to what functions need to be executed based on the type of the Raspberry Pi
+* `nodeList` – A configuration file that contains information for each Raspberry Pi that you want to enable for booting over the network. Information is stored per line for each Pi with the column order of: serialnumber nodename
+* `prepWorkerImage.sh` – The script that creates the separated Raspberry Pi OS configuration environments based on the input consumed from the file nodeList
 
-Let me take you through all the parts in chronological order. Bash scripts are fully read into memory before the actual execution starts. Here we go.
+## Prepare the nodeList file
 
-### The script explained in chunks
+The content of the nodeList file has columned information. The current script will read each line and take only into account the first two columns.
 
-#### Part 1. General - Updating the system
+* Column 1: Contains the serial number of the Raspberry Pi that it uses to identify itself for unique configuration during the PXE boot to get from the tftp share.
+  * Note: The `prepHost.sh` script adds a configuration that the PXE environment also accepts a MAC address as unique identifier. See article: Setup PXE and NFS on PiServer
+  * The MAC address should be denoted with hyphens as: `11-22-33-AA-BB-CC`
+* Column 2: Contains the hostname to be assigned to the specific Raspberry Pi configuration
 
+An example of a nodeList file could look lite this:
 
 ```bash
-## Update and upgrade the rPI 
-sudo apt update && sudo apt -y full-upgrade
+5d24fd10    pinode01
+c9b08141    pinode02
+dc-a6-32-75-c8-1c    pinode03
 ```
 
-#### Part 2. Function - `collectPIDetails ()`
+## Explaining the script
 
-This function collects information about the system we need and store it in the `hardwareInfo.txt` file. Amongst other details it stores the last 8 characters of the serial number that the Pi uses to uniquely identify itself to the PiServer to get it's configuration.  
-As it is also possible to use the MAC address as unique identifier, it converts the MAC address of the ethernet port to the format the TFTP server can consume it. Meaning the : (colons) are replaced with - (hyphens).
+The script contains a list of steps in a logical order to enable a separated configuration for a Raspberry Pi to boot from. These steps are wrapped in a function that is called and enriched with the information from an input file containing unique information for each Raspberry Pi. This is preceded by some preparation work not unique for each system to configure.
+
+Now let us dive in to the script starting from the top. The whole script can be found at the bottom of this article.
+
+### Step 1. Project directory
+
+To keep things organized I use a project directory netBoot where all the files files will downloaded to and consumed from.
 
 ```bash
-collectPIDetails() {
-    ## Collect system information and store in a file
-    cat /proc/cpuinfo | grep Model > hardwareInfo.txt
-    cat /proc/cpuinfo | grep Serial >> hardwareInfo.txt
-    cat /proc/cpuinfo | grep Hardware >> hardwareInfo.txt
-    cat /proc/cpuinfo | grep Revision >> hardwareInfo.txt
-
-    MAC_ETH=$(cat /sys/class/net/eth0/address)
-    echo "MAC eth0        : $MAC_ETH" >> hardwareInfo.txt
-
-    # Convert the MAC address to a string consumable by the TFTP boot process
-    MAC_ETH1="$(tr ":" - <<<$MAC_ETH)"
-    echo "MAC eth0 (TFTP) : $MAC_ETH1" >> hardwareInfo.txt
-
-    MAC_WLN=$(cat /sys/class/net/wlan0/address)
-    echo "MAC wlan0       : $MAC_WLN" >> hardwareInfo.txt
-
-    SERIALNR=$(cat /proc/cpuinfo | grep Serial)
-    echo "Netboot serial  : ${SERIALNR:(-8)}" >> hardwareInfo.txt
-
-    cat hardwareInfo.txt
-}
+## Create if not exist and enter project directory:
+[ ! -d ~/netBoot ] && mkdir -p ~/netBoot
+cd ~/netBoot
 ```
 
-#### Part 3. Funcion - `preparePI3Bp()`
+### Step 2. Import and define configuration information
 
-This function takes care of the Raspberry Pi 3B Plus systems. What it does is:
-
-* It retrieves the value in the boot mechanism that specifies if `netboot` is enabled or not. The value for when it is enabled is stored in `OPT_NETBOOT`.
-* The if statement checks the value from the system stored in `OPT_VALUE` with the value in the `OPT_NETBOOT` to see if it is already enabled for netboot or not.
-* If the values match the Raspberry Pi is already enabled for booting over the network. The script exits here.
-* If the value does not match an additional line is added to the `/boot/config.txt` to enable the Pi.
-* Next the script wil exit and the Raspberry Pi needs to be rebooted to make the actual change.
+The script consumes information from the nodelist file we have prepared earlier in this article. At this location I also specify values for variables I use later in the script.
 
 ```bash
-preparePI3Bp() {
-    ## Configuring the Raspberry Pi 3 Model B Plus for PXE booting
+## Collect some details for a specific Raspberry Pi to work with this configuration:
+INPUT_FILE=~/nodeList
+KICKSTART_IP=10.16.200.1
+```
 
-    # Check if Pi is already configured
-    OTP_VALUE=$(vcgencmd otp_dump | grep 17:)
-    OTP_NETBOOT="17:3020000a"
+* `INPUT_FILE` specifies where the script can find the nodelist file.
+* The variable `KICKSTART_IP` defines the master Raspberry Pi server IP address that hosts the NFS and tftp shares used for the PXE boot mechanism.
 
-    if  [[ ${OTP_VALUE} == ${OTP_NETBOOT} ]] ; then
-        echo -e "\nThis Raspberry Pi 3B Plus is already Netboot enabled."
-        exit 0
-    else
-        echo -e "\nPrepare the Raspberry Pi 3B Plus to enable Netboot."
-        echo program_usb_boot_mode=1 | sudo tee -a /boot/config.txt
-        echo -e "\nReboot required. Please reboot the Raspberry Pi"
+### Step 3. Download latest Raspberry Pi OS image
+
+We need to have an image file of the Raspberry Pi OS file on the Pi server that will be used as source for the different Raspberry Pi nodes. To save time and avoid double downloads and unzip actions I have build in some additional logic:
+
+```bash
+## Download and unzip the latest Raspbian Buster Lite image:
+# Download only if newer timestamp than local file
+curl -RLo latest-buster-lite.zip -z latest-buster-lite.zip 
+    https://downloads.raspberrypi.org/raspios_lite_armhf_latest
+
+# Get the name of the file in the ZIP:
+FILE_IN_ZIP=$(zipinfo -1 latest-buster-lite.zip)
+
+# Extract only if not already extracted:
+if [ ! -f ${FILE_IN_ZIP} ]; then
+    unzip latest-buster-lite.zip
+fi
+```
+
+* The download with curl will check if the timestamp of the file on the server is newer than the one on the local disk.
+* Next the name of the (first) file in the zip file is retrieved to compare if …
+* Compare if there is already a file with the same name on disk. If not, unzip the zip file.
+
+### Step 4. Read input file and execute
+
+At the bottom of the script you find the part that reads the information from the file and iterates through the lines and calling the function doPrepWorker. You find this after the functions you call because a bash script is read in to memory from beginning to end before it executes.
+
+```bash
+## Read the input file and execute
+while read line ; do
+    set $line
+    PI_ID=$1
+    PI_NAME=$2
+    echo -e "\nProcessing node:" ${PI_NAME}
+    doPrepWorker ${PI_ID} ${PI_NAME}
+done < "${INPUT_FILE}"
+```
+
+* The input file is read line by line
+* For each line the values as we put them in columns are split out into two named variables
+* With doPrepWorker `${PI_ID}` `${PI_NAME}` the function is called and the two named variables are passed along
+
+### Step 5. Function doPrepWorker
+
+We jump back to the function doPrepWorker. This function contains basically the actual script to be executed for each unique Raspberry Pi system. The function is repeated for each line in the `nodeList` file.
+
+#### Step 5.1 Creating unique directories
+
+As we want to have full separation of systems for each system a unique NFS and TFTP directory. These directories are created with the information stored in the variables to enable uniqueness.
+
+```bash
+    # Make a directory to contain the network boot client image:
+    echo -e "\nCreate NFS folder for node ..."
+    sudo mkdir -p /nfs/${PI_ID}
+```
+#### Step 5.2 Mounting the OS image
+
+We need to make the downloaded image accessible to get to it’s contents.
+
+```bash
+    # Mount the Raspberry Pi OS image:
+    echo -e "\nMount Raspberry Pi OS Image ..."
+    # Create mount points for the image
+    [ -d rootmnt ] || mkdir rootmnt
+    [ -d bootmnt ] || mkdir bootmnt
+
+    # Make the image file accessible
+    sudo kpartx -a -v ${FILE_IN_ZIP}
+
+    # Mount the partitions in the image to the mountpoints
+    sudo mount /dev/mapper/loop0p2 rootmnt/
+    sudo mount /dev/mapper/loop0p1 bootmnt/
+```
+
+* First we create mount points for the two partitions in the OS image file
+* Next we make the OS image file accessible to the system
+* Lastly we mount the partitions to know mount points to get access to the files and folders
+
+#### Step 5.3 Copy contents to node directories
+
+Now that the image file is mounted we need to copy over the contents of both partitions to the two respective folders we uniquely created for each Raspberry Pi system. Once completed, the mounts are un-mounted.
+
+```bash
+    # Copy the Raspbian Buster Lite image to the network boot client image directory created above:
+    echo -e "\nCopy content from root mount ..."
+    sudo cp -a rootmnt/* /nfs/${PI_ID}/
+    echo -e "\nCopy content from boot mount ..."
+    sudo cp -a bootmnt/* /nfs/${PI_ID}/boot/
+    echo -e "\nDone. Unmounting ..."
+    sudo umount rootmnt
+    sudo umount bootmnt
+```
+
+#### Step 5.4 Replace some boot files
+
+As we are still dealing with beta functionality we need to replace two other files required for the boot process. We will delete the old ones, replace them with new ones and set appropriate permissions.
+
+```bash
+    # We need to replace the default rPI firmware files with the latest version by running the following commands:
+    echo -e "\nUpdate some firmware files to enable netboot ..."
+
+    # Remove current
+    sudo rm /nfs/${PI_ID}/boot/start4.elf
+    sudo rm /nfs/${PI_ID}/boot/fixup4.dat
+
+    # Download latest
+    sudo wget https://github.com/Hexxeh/rpi-firmware/raw/stable/start4.elf -P /nfs/${PI_ID}/boot/
+    sudo wget https://github.com/Hexxeh/rpi-firmware/raw/stable/fixup4.dat -P /nfs/${PI_ID}/boot/
+
+    # Correct permissions
+    sudo chmod 755 /nfs/${PI_ID}/boot/start4.elf
+    sudo chmod 755 /nfs/${PI_ID}/boot/fixup4.dat
+```
+
+#### Step 5.5 Remove SD-Card partition mount points
+
+While using the boot information from the TFTP share all mount points to the SD-Card partitions needs to be removed.
+
+```bash
+    # Ensure the network boot client image doesn't attempt to look for filesystems on the SD Card:
+    echo -e "\nRemove any SD Card mount-points ..."
+    sudo sed -i /UUID/d /nfs/${PI_ID}/etc/fstab
+```
+
+#### Step 5.6 Add NFS share mount point
+
+Now that the mount-points to the SD-Card are removed, we need to add to the boot configuration file `/nfs/${PI_ID}/boot/cmdline.txt` the unique share and folder location for each individual system.
+
+```bash
+    # Replace the boot command in the network boot client image to boot from a network share.
+    echo -e "\nUpdate cmdline.txt to boot from NFS share ..."
+    echo "console=serial0,115200 console=tty root=/dev/nfs nfsroot=${KICKSTART_IP}:/nfs/${PI_ID},vers=3 rw ip=dhcp rootwait elevator=deadline modprobe.blacklist=bcm2835_v4l2" | sudo tee /nfs/${PI_ID}/boot/cmdline.txt
+```
+
+#### Step 5.7 Enable SSH at boot
+
+By adding an empty file called ssh to the boot folder in the unique NFS share, the new Raspberry Pi will enable SSH access for remote management like with setting up a system for headless operations.
+
+```bash
+    # Enable SSH in the network boot client image:
+    echo -e "\nEnable SSH at first boot of Raspberry Pi ..."
+    sudo touch /nfs/${PI_ID}/boot/ssh
+```
+
+#### Step 5.8 Add NFS share to the server’s configuration
+
+Next we need to add the configuration of the NFS share to the server system to enable the share exposure.
+
+```bash
+    # Create a network share containing the network boot client image:
+    echo -e "\nCreate NFS share for node ..."
+    if [[ $(grep -L "/nfs/${PI_ID}" /etc/exports) ]]; then
+        echo "/nfs/${PI_ID} *(rw,sync,no_subtree_check,no_root_squash)" | sudo tee -a /etc/exports
     fi
-}
 ```
 
-#### Part 4. Function - `preparePI4()`
-This function is specific for the Raspberry Pi 4. As booting over the network is in BETA, the BETA firmware needs to be loaded in the EEPROM of the Pi.
+#### Step 5.9 Prepare the TrivialFTP (TFTP) folder
 
-For this article I use the beta firmware that is released on 31st of July 2020. This specific version is specified in the PI_EEPROM_VERSION variable.
-If you want to check if there are any newer versions, check here: [Online Raspberry Pi BETA firmwares](https://github.com/raspberrypi/rpi-eeprom/tree/master/firmware/beta)
-
-
-So what happens here is:
-
-* The version of the firmware to use is stored in `PI_EEPROM_VERSION`
-* Next this specified version is downloaded from the Raspberry Pi GitHub repository. (After updating the system it is actually also present on the Pi itself)
-* Next the configuration information from the firmware is extracted to `bootconf.txt`
-* In this extracted configuration the value to enable netboot is changed to `0x21`
-* Next a customized firmware package is created with the modified configuration file.
-* Finally the modified firmware is presented to the system to be applied at the next boot. A message will display that you need to reboot the Raspberry Pi.
+Although this step is only required once at the first time to setup a boot environment, It cannot hurt to have it in there to have it automatically updated once a newer Raspberry Pi OS image is used.
 
 ```bash
-preparePI4() {
-    ## Configuring the Raspberry Pi 4 Model B for PXE booting
+    # Create a TrivialFTP folder containing boot code for all network boot clients
+    echo -e "\nCreate TFTP root folder ..."
+    [ -d /tftpboot ] || mkdir -p /tftpboot
+    [ -f /tftpboot/bootcode.bin ] || sudo cp /nfs/${PI_ID}/boot/bootcode.bin /tftpboot/bootcode.bin
+    sudo chmod 777 /tftpboot
 
-    ## Specify latest beta eeprom firmware
-    PI_EEPROM_VERSION=pieeprom-2020-07-31
+    # Create a directory for the first network boot client in the /tftpboot 
+    echo -e "\nCreate TFTP boot folder for node ..."
+    sudo mkdir -p /tftpboot/${PI_ID}
 
-    # Donwload the beta eeprom firmware
-    wget https://github.com/raspberrypi/rpi-eeprom/raw/master/firmware/beta/${PI_EEPROM_VERSION}.bin
-    sudo rpi-eeprom-config ${PI_EEPROM_VERSION}.bin > bootconf.txt
-    sed -i 's/BOOT_ORDER=.*/BOOT_ORDER=0x21/g' bootconf.txt
-    sudo rpi-eeprom-config --out ${PI_EEPROM_VERSION}-netboot.bin --config bootconf.txt ${PI_EEPROM_VERSION}.bin
-    sudo rpi-eeprom-update -d -f ./${PI_EEPROM_VERSION}-netboot.bin
-}
+    # Copy the boot directory from the /nfs/${PI_ID} directory to the new directory 
+    # in /tftpboot:
+    echo -e "\nCopy boot content to TFTP boot folder ..."
+    sudo cp -a /nfs/${PI_ID}/boot/* /tftpboot/${PI_ID}/
 ```
 
-#### Part 5. The script's logic
+* Copy over the latest bootcode.bin file to the /tftpboot folder
+* Create system specific folder for the boot client
+* Copy over the contents of the boot folder from the new systems NFS share for the netboot procedure.
 
-This part is the brains of the script. What it does is:
+How it works: What happens is that a Raspberry Pi receives the information where to find the files required to boot. First thing is that the `bootcode.bin` file is read and executed. Next is that the Raspberry Pi has a mechanism built-in to uniquely identify itself with the last 8 characters of it’s serial number as we have specified in the variable `${PI_ID}`. OR if the system is enabled to use MAC addresses for identification, the MAC address is used. The possibility to use MAC addresses is enabled in the server side setup of this project.
 
-* Retrieve the model name of the current Raspberry Pi and store it in the variable `CURRENT_PI`
-* Store the most likely to use Raspberry Pi model names in separate variables to check against
-* Next it calls the function collectPIDetails to collect information about this Pi and store it in the file `hardwareInfo.txt` for later usage.
-* The next part checks agains the possible options stored and the retrieved model name. Based on the match, it will call the respective function to prepare the system.
+#### Step 5.10 Assign hostname to the Raspberry Pi configuration
 
-```bash
-################################################################################
-## Script Logic
-
-## Determine model of Raspberry Pi
-CURRENT_PI=$(cat /proc/cpuinfo | grep Model)
-#echo $CURRENT_PI
-PI_4B="Raspberry Pi 4 Model B"
-PI_3Bp="Raspberry Pi 3 Model B Plus"
-PI_3B="Raspberry Pi 3 Model B Rev"
-
-# Call function to store information about the Raspberry Pi for later consumption
-collectPIDetails
-
-# Select what to do based on type of Raspberry Pi
-case $CURRENT_PI in
-    *${PI_3B}* )
-        echo -e "\nThis is a ${PI_3B}"
-        ;;
-    *${PI_3Bp}* )
-        echo -e "\nThis is a ${PI_3Bp}"
-        preparePI3Bp
-        ;;
-    *${PI_4B}* )
-        echo -e "\nThis is a ${PI_4B}"
-        preparePI4
-        ;;
-    * )
-        echo -e "Raspberry Pi is not identified";;
-esac
-```
-
-### Full Script
-
-When all is stitched together you get the full script as shown here:
+Each system should have it’s own unique name. One of the advantages of using a netboot environment is that the configuration files of the individual systems is already accessible for pre-configuration. So we edit here the `/etc/hosts` and the `/etc/hostname` file that contain the details for the systems hostname.
 
 ```bash
-#!/usr/bin/env bash
-################################################################################
-# Script name: prepNetbootWorker.sh
-# Version: 1.0
-#
-# Usage:
-#   This script needs to be executed on the Raspberry Pi itself.
-################################################################################
-
-##
-## Worker Configuration
-##
-
-################################################################################
-## General operations
-
-## Update and upgrade the rPI
-sudo apt update && sudo apt -y full-upgrade
-
-################################################################################
-## Script Functions. Goes before the Script Logic
-
-collectPIDetails() {
-    ## Collect system information and store in a file
-    cat /proc/cpuinfo | grep Model > hardwareInfo.txt
-    cat /proc/cpuinfo | grep Serial >> hardwareInfo.txt
-    cat /proc/cpuinfo | grep Hardware >> hardwareInfo.txt
-    cat /proc/cpuinfo | grep Revision >> hardwareInfo.txt
-
-    MAC_ETH=$(cat /sys/class/net/eth0/address)
-    echo "MAC eth0        : $MAC_ETH" >> hardwareInfo.txt
-
-    # Convert the MAC address to a string consumable by the TFTP boot process
-    MAC_ETH1="$(tr ":" - <<<$MAC_ETH)"
-    echo "MAC eth0 (TFTP) : $MAC_ETH1" >> hardwareInfo.txt
-
-    MAC_WLN=$(cat /sys/class/net/wlan0/address)
-    echo "MAC wlan0       : $MAC_WLN" >> hardwareInfo.txt
-
-    SERIALNR=$(cat /proc/cpuinfo | grep Serial)
-    echo "Netboot serial  : ${SERIALNR:(-8)}" >> hardwareInfo.txt
-
-    cat hardwareInfo.txt
-}
-
-preparePI3Bp() {
-    ## Configuring the Raspberry Pi 3 Model B Plus for PXE booting
-
-    # Check if Pi is already configured
-    OTP_VALUE=$(vcgencmd otp_dump | grep 17:)
-    OTP_NETBOOT="17:3020000a"
-
-    if  [[ ${OTP_VALUE} == ${OTP_NETBOOT} ]] ; then
-        echo -e "\nThis Raspberry Pi 3B Plus is already Netboot enabled."
-        exit 0
+    ## Update the /etc/hosts file with the new name.
+    echo -e "\nAssigning new computername to the Raspberry Pi image ..."
+    # Modify hosts file
+    if grep -Fq "127.0.1.1" /nfs/${PI_ID}/etc/hosts
+    then
+        ## If found, replace the line
+        sudo sed -i "/127.0.1.1/c\127.0.1.1    ${PI_NAME}" /nfs/${PI_ID}/etc/hosts
     else
-        echo -e "\nPrepare the Raspberry Pi 3B Plus to enable Netboot."
-        echo program_usb_boot_mode=1 | sudo tee -a /boot/config.txt
-        echo -e "\nReboot required. Please reboot the Raspberry Pi"
+        ## If not found, add the line
+        echo '127.0.1.1    '${PI_NAME} &>> /nfs/${PI_ID}/etc/hosts
     fi
-}
+    # Modify hostname file
+    sudo sed -i "/raspberry/c\\${PI_NAME}" /nfs/${PI_ID}/etc/hostname
 
-preparePI4() {
-    ## Configuring the Raspberry Pi 4 Model B for PXE booting
-
-    ## Specify latest beta eeprom firmware
-    PI_EEPROM_VERSION=pieeprom-2020-07-31
-
-    # Donwload the beta eeprom firmware
-    wget https://github.com/raspberrypi/rpi-eeprom/raw/master/firmware/beta/${PI_EEPROM_VERSION}.bin
-    sudo rpi-eeprom-config ${PI_EEPROM_VERSION}.bin > bootconf.txt
-    sed -i 's/BOOT_ORDER=.*/BOOT_ORDER=0x21/g' bootconf.txt
-    sudo rpi-eeprom-config --out ${PI_EEPROM_VERSION}-netboot.bin --config bootconf.txt ${PI_EEPROM_VERSION}.bin
-    sudo rpi-eeprom-update -d -f ./${PI_EEPROM_VERSION}-netboot.bin
-}
-
-################################################################################
-## Script Logic
-
-## Determine model of Raspberry Pi
-CURRENT_PI=$(cat /proc/cpuinfo | grep Model)
-#echo $CURRENT_PI
-PI_4B="Raspberry Pi 4 Model B"
-PI_3Bp="Raspberry Pi 3 Model B Plus"
-PI_3B="Raspberry Pi 3 Model B Rev"
-
-# Call function to store information about the Raspberry Pi for later consumption
-collectPIDetails
-
-# Select what to do based on type of Raspberry Pi
-case $CURRENT_PI in
-    *${PI_3B}* )
-        echo -e "\nThis is a ${PI_3B}"
-        ;;
-    *${PI_3Bp}* )
-        echo -e "\nThis is a ${PI_3Bp}"
-        preparePI3Bp
-        ;;
-    *${PI_4B}* )
-        echo -e "\nThis is a ${PI_4B}"
-        preparePI4
-        ;;
-    * )
-        echo -e "Raspberry Pi is not identified";;
-esac
+    ## The End
+    echo -e "\nDone for ${PI_ID} ${PI_NAME}"
 ```
 
+### Step 6. Reboot the server
 
+Now that all the environments and configurations are created for the Raspberry Pi’s listed in the nodeList file, they are ready to boot over the network. Almost. As we have added some new NFS and TFPT shares to the server configuration, I found it is required to reboot the server as restarting the services does not provide me the desired results. Once rebooted, the Raspberry Pi’s can boot over the network without any issues.
 
+```bash
+sudo reboot
+```
+
+## The full script
+
+In the below GitHub repository you can find both files discussed in this article
+[CrossCloudGuru / netBootRPI repository](https://github.com/CrossCloudGuru/netBootRPI)
+
+The next article in the series will describe the steps required to enable Raspberry Pi’s to boot over the network.  
+[Enable Raspberry Pi's to boot over the network]({% post_url 2020-09-15-enable-raspberry-pis-to-boot-over-the-network %})
 
