@@ -12,182 +12,50 @@ tags:
   - vmware
 ---
 
-This article is part of the series Arch Linux in a VMware Workstation. In the first article I will explain to you how I configured my VMware Workstation (on Linux) virtual machine that I use with my script to install Arch Linux.
+### Introduction
 
-Configuration I use:
+This article is the home of the series Arch Linux in VMware Workstation.
 
-* Ubuntu 18.04 Desktop
-* VMware Workstation Pro 15
+In these series I will explain to you how I managed to install Arch Linux as a guest in VMware Workstation (on Linux) mostly automated with an installation script.
 
-### Virtual Machine Configuration
+I got curious about Arch Linux after reading an interesting article in one of my favorite magazines. The trigger for me was that Arch Linux uses a rolling update philosophy. So let’s dig in and get it installed in a virtual machine and play with it to figure out the differences to my Ubuntu addiction. As usual it did not fully work for me right away. You know, just give it a shot with only taking a glimpse of the documentation. So some more searching the web and try the instructions I found that tried to achieve similar to my goal. Still no luck. My issues were with installing the boot loader at the end of the installation. But after many reads and alternative boot loaders I got grub working.
 
-Create a virtual machine that will hold the Arch Linux and take into account the following settings: Custom Virtual Machine Configuration:
+Meanwhile I captured all the commands in the order they needed to be executed. After so many installations I created a script so the repetition would be automated up to the point of where I found challenges and once resolved I had a fully working script.
 
-![VM for Arch - Custom Configuration]({{ site.url }}{{ site.baseurl }}/assets/images/articles/ArchVMConfig01.png)
-
-Use the latest hardware compatibility:
-
-![VM for Arch - Virtual hardware compatibility]({{ site.url }}{{ site.baseurl }}/assets/images/articles/ArchVMConfig02.png)
-
-Select the ISO image of the latest Arch Linux release:
-
-![VM for Arch - Select ISO Image](https://raw.githubusercontent.com/CrossCloudGuru/CrossCloudGuru.github.io/master/assets/images/articles/ArchVMConfig03.png)
-
-Select for the Guest Operating system Linux with Other Linux 5.x or later kernel 64-bit:
-
-![ArchVMConfig04](https://raw.githubusercontent.com/CrossCloudGuru/CrossCloudGuru.github.io/master/assets/images/articles/ArchVMConfig04.png)
-
-Provide the name and location for the virtual machine:
-
-![ArchVMConfig05](https://raw.githubusercontent.com/CrossCloudGuru/CrossCloudGuru.github.io/master/assets/images/articles/ArchVMConfig05.png)
-
-Specify CPU and Cores to your needs. I keep it default here:
-
-![ArchVMConfig06](https://raw.githubusercontent.com/CrossCloudGuru/CrossCloudGuru.github.io/master/assets/images/articles/ArchVMConfig06.png)
-
-Defaults as for the memory:
-
-![ArchVMConfig07](https://raw.githubusercontent.com/CrossCloudGuru/CrossCloudGuru.github.io/master/assets/images/articles/ArchVMConfig07.png)
-
-Choose if your virtual machine should appear as a separate computer on your network or use NAT on the IP of your host pc. I keep the NAT setting:
-
-![ArchVMConfig08](https://raw.githubusercontent.com/CrossCloudGuru/CrossCloudGuru.github.io/master/assets/images/articles/ArchVMConfig08.png)
+Now I can install a fresh Arch Linux installation in a VMware virtual machine ready to reboot into a functional virtual machine in about 1 minute and 5 seconds over and over again. Isn’t that cool? If you are up to it to give it a go, I invite you to the articles in the series:
 
 
+### Articles  
+
+- [Overview]({% post_url 2019-12-24-0_3-arch-linux-in-vmware-workstation-overview %})
+- [Article 1: Setup the virtual machine]({% post_url 2019-12-24-1_3-arch-linux-in-vmware-workstation-setup-the-virtual-machine %})
+- [Article 2: Prepare and execute the scripts]({% post_url 2019-12-24-2_3-arch-linux-in-vmware-workstation-prepare-and-execute-the-scripts %})
+- [Article 3: The scripts in detail]({% post_url 2019-12-24-3_3-arch-linux-in-vmware-workstation-the-scripts-in-detail %})
+
+Here is the link to the full scripts:
+[Git repository ArchInstall scripts](https://github.com/CrossCloudGuru/ArchInstall)
 
 ---
 
-This article is part of the series Arch Linux in a VMware Workstation. In the second article I will explain to you how I get my scripts into virtual machine and execute them.
-Configuration I use:
+### Sources
 
-* Ubuntu 18.04 Desktop
-* VMware Workstation Pro 15
+Next steps in the journey with Arch: General recommendations – ArchWiki
+[https://wiki.archlinux.org/index.php/General_recommendations]
+(https://wiki.archlinux.org/index.php/General_recommendations)
 
-For this article to follow along, I assume that you have completed the article Setup the virtual machine to continue.
+To figure out the fastest mirror close to you: Arch Linux – Mirror Status
+[https://www.archlinux.org/mirrors/status/]
+(https://www.archlinux.org/mirrors/status/)
 
-Steps in this article: 
+Or generate a mirror list by country (not used in the script): Arch Linux – Pacman Mirrorlist Generator : 
+[https://www.archlinux.org/mirrorlist/?country]
+(https://www.archlinux.org/mirrorlist/?country)
 
-1. Accessing the VM from a terminal
-1. Synchronize the time
-1. Download the repository
-1. Install git
-1. Clone the git repository
-1. Prep and execute the scripts
-1. Admire the results
+If you want to read more on chroot: chroot – Wikipedia  
+[https://en.wikipedia.org/wiki/Chroot]
+(https://en.wikipedia.org/wiki/Chroot)
 
-### Accessing the VM from a terminal
+This is the article where I learned how to start a script in the chroot environment: [solved] a simple installation script not working / Installation / Arch Linux Forums  
+[https://bbs.archlinux.org/viewtopic.php?id=204252]
+(https://bbs.archlinux.org/viewtopic.php?id=204252)
 
-Now we can ssh into this virtual machine from our host machine:
-
-```bash
-ssh root@172.16.157.183
-```
-
-![alt]({{ site.url }}{{ site.baseurl }}/assets/images/articles/ArchTerm01.png)
-
-### Synchronize the time
-
-
-If you want to time how long the installation script takes in your configuration, make sure your time is synchronized before running the script:
-
-```bash
-timedatectl set-ntp true
-```
-
-![alt]({{ site.url }}{{ site.baseurl }}/assets/images/articles/ArchTerm02.png)
-
-### Download the repository
-
-Download the latest repository files:
-
-```bash
-pacman -Sy
-```
-
-![alt]({{ site.url }}{{ site.baseurl }}/assets/images/articles/ArchTerm03.png)
-
-**Note:** I have omitted the option u as I do not want to update the live system.
-
-### Install git
-
-Install git:
-
-```bash
-pacman -S git
-```
-
-![alt]({{ site.url }}{{ site.baseurl }}/assets/images/articles/ArchTerm04.png)
-
-Press Y to continue the installation…
-
-### Clone the git repository
-
-Clone the git repository:
-
-```bash
-git clone https://github.com/CrossCloudGuru/ArchInstall.git
-```
-
-![alt]({{ site.url }}{{ site.baseurl }}/assets/images/articles/ArchTerm05.png)
-
-### Prep and execute the scripts
-
-Change into the cloned repository and make the scripts executable:
-
-```bash
-cd ArchInstall
-chmod +x *.sh
-ll
-```
-
-![alt]({{ site.url }}{{ site.baseurl }}/assets/images/articles/ArchTerm06.png)
-
-Now the fun part starts. We are ready to start the script! Lets time it:
-
-```bash
-time ./ArchInstallation.sh
-```
-
-![alt]({{ site.url }}{{ site.baseurl }}/assets/images/articles/ArchTerm07.png)
-
-### Admire the results
-
-Once completed, you can see the time it took:
-
-![alt]({{ site.url }}{{ site.baseurl }}/assets/images/articles/ArchTerm08.png)
-
-It shows 1 minute and 6 seconds…
-
-Different factors influence the duration of course: internet speed, power of your host system, the mirror used and its speed…
-
-To finalize reboot the machine and have a look at the result:
-
-![alt]({{ site.url }}{{ site.baseurl }}/assets/images/articles/ArchTerm09.png)
-
-It shows the GNU GRUB boot loader. That is a pleasure to my eye to see this worked …
-
-Once booted and logged in get the details of the kernel:
-
-```bash
-uname -a
-```
-
-![alt]({{ site.url }}{{ site.baseurl }}/assets/images/articles/ArchTerm10.png)
-
-It shows that the latest kernel (as of writing this article) is used.
-
-**NOTICE:** I will not go in any detail of what to do next with the VM to make it a production ready and secured system. That is outside the scope of the series of articles. The sshd service is enabled and started as specified in the script. Before you can connect to it, you have to either allow root to login with a password or create an administrative account with ssh rights.
- {: .notice--warning}
- 
- ![alt]({{ site.url }}{{ site.baseurl }}/assets/images/articles/ArchTerm11.png)
-
-### Conclusion / Next Steps
-
-This concludes this article. If all went fine, you have now a virtual machine running a freshly installed Arch Linux system and ready to connect from the host machine. To continue to the next article in this series click here: Article 3: The scripts in detail
-
-Navigation:
-
-* Overview
-* Article 1: Setup the virtual machine 
-* Article 2: Prepare and execute the scripts
-* Article 3: The scripts in detail
