@@ -286,6 +286,20 @@ case $CURRENT_PI in
 esac
 ```
 
+---
+
+I hope you like the articles and learned something new.
+
+Navigation:  
+
+<!-- - [Overview]({% post_url 2019-12-24-0_3-arch-linux-in-vmware-workstation-overview %}) -->
+- [[1/3] Netboot Pi - Setup PXE and NFS on PiServer]({% post_url 2020-09-14-1_3-setup-pxe-and-nfs-on-piserver %})
+- [[2/3] Netboot Pi - Prepare netboot OS environment for Raspberry Pi’s]({% post_url 2020-09-14-2_3-prepare-netboot-os-environment-for-raspberry-pis %})
+- [[3/3] Netboot Pi - Enable Raspberry Pi's to boot over the network]({% post_url 2020-09-15-3_3-enable-raspberry-pis-to-boot-over-the-network %})
+
+Here is the link to the full scripts:
+[Git repository Netboot Pi scripts](https://github.com/CrossCloudGuru/NetbootPi)
+
 
 
 
