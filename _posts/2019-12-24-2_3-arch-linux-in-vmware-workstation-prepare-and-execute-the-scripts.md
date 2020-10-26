@@ -139,9 +139,16 @@ It shows that the latest kernel (as of writing this article) is used.
 
 This concludes this article. If all went fine, you have now a virtual machine running a freshly installed Arch Linux system and ready to connect from the host machine. To continue to the next article in this series click here: Article 3: The scripts in detail
 
-Navigation:
+---
 
-* Overview
-* Article 1: Setup the virtual machine 
-* Article 2: Prepare and execute the scripts
-* Article 3: The scripts in detail
+I hope you liked the articles and learned something new.
+
+Navigation:  
+
+- [Overview]({% post_url 2019-12-24-0_3-arch-linux-in-vmware-workstation-overview %})
+- [Article 1: Setup the virtual machine]({% post_url 2019-12-24-1_3-arch-linux-in-vmware-workstation-setup-the-virtual-machine %})
+- [Article 2: Prepare and execute the scripts]({% post_url 2019-12-24-2_3-arch-linux-in-vmware-workstation-prepare-and-execute-the-scripts %})
+- [Article 3: The scripts in detail]({% post_url 2019-12-24-3_3-arch-linux-in-vmware-workstation-the-scripts-in-detail %})
+
+Here is the link to the full scripts:
+[Git repository ArchInstall scripts](https://github.com/CrossCloudGuru/ArchInstall)

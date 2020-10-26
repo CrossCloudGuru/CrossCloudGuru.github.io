@@ -668,16 +668,14 @@ We have now reached the end of the scripts and if executed it leaves you in a sy
 
 ---
 
-I hope you liked the articles and learned something new. If you find any errors or know better ways, please share in the comments as well. Navigation:
+I hope you liked the articles and learned something new.
+
+Navigation:  
 
 - [Overview]({% post_url 2019-12-24-0_3-arch-linux-in-vmware-workstation-overview %})
 - [Article 1: Setup the virtual machine]({% post_url 2019-12-24-1_3-arch-linux-in-vmware-workstation-setup-the-virtual-machine %})
 - [Article 2: Prepare and execute the scripts]({% post_url 2019-12-24-2_3-arch-linux-in-vmware-workstation-prepare-and-execute-the-scripts %})
+- [Article 3: The scripts in detail]({% post_url 2019-12-24-3_3-arch-linux-in-vmware-workstation-the-scripts-in-detail %})
 
 Here is the link to the full scripts:
 [Git repository ArchInstall scripts](https://github.com/CrossCloudGuru/ArchInstall)
-
-
-
-
-
