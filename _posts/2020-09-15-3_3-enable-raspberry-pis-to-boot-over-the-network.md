@@ -1,5 +1,5 @@
 ---
-title: "[2/3] Enable Raspberry Pi's to boot over the network"
+title: "[3/3] Enable Raspberry Pi's to boot over the network"
 date: 2020-09-15T15:14:00-04:00
 excerpt_separator: "<!--more-->"
 toc: true
@@ -18,6 +18,7 @@ This thrird article is about enabling the Raspberry Pi to boot over the network.
 <!--more-->
 
 **DISCLAIMER**: This article discusses the usage of Beta firmware for the Raspberry Pi 4. Use at your own risk.
+{: .notice--warning}
 
 You could argue if this script is actually the second step in the project as it also collects required information that is required to setup the server side OS environment for this Raspberry Pi the script is executed on.
 
