@@ -2,8 +2,7 @@
 title: "[1/3] Arch Linux in VMware Workstation – Prepare and execute the scripts"
 date: 2019-12-24T15:10:00-04:00
 toc: true
-toc_icon: list-alt
-
+toc_icon: stream
 categories:
   - blog
   - tutorial

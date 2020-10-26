@@ -2,8 +2,7 @@
 title: "[0/3] Arch Linux in VMware Workstation – Overview"
 date: 2019-12-24T15:05:00-04:00
 toc: true
-toc_icon: list-alt
-
+toc_icon: stream
 categories:
   - blog
   - tutorial

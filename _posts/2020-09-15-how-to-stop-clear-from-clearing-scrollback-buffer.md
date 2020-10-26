@@ -3,6 +3,7 @@ title: "How to stop clear from clearing scrollback buffer"
 date: 2020-09-15T15:15:00-04:00
 #classes: wide
 toc: true
+toc_icon: stream
 categories:
   - blog
   - tutorial
