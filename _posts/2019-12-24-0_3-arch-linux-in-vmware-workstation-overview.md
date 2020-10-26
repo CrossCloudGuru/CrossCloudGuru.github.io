@@ -40,22 +40,16 @@ Here is the link to the full scripts:
 ### Sources
 
 Next steps in the journey with Arch: General recommendations – ArchWiki
-[https://wiki.archlinux.org/index.php/General_recommendations]
-(https://wiki.archlinux.org/index.php/General_recommendations)
+[https://wiki.archlinux.org/index.php/General_recommendations](https://wiki.archlinux.org/index.php/General_recommendations)
 
 To figure out the fastest mirror close to you: Arch Linux – Mirror Status
-[https://www.archlinux.org/mirrors/status/]
-(https://www.archlinux.org/mirrors/status/)
+[https://www.archlinux.org/mirrors/status/](https://www.archlinux.org/mirrors/status/)
 
 Or generate a mirror list by country (not used in the script): Arch Linux – Pacman Mirrorlist Generator : 
-[https://www.archlinux.org/mirrorlist/?country]
-(https://www.archlinux.org/mirrorlist/?country)
+[https://www.archlinux.org/mirrorlist/?country](https://www.archlinux.org/mirrorlist/?country)
 
 If you want to read more on chroot: chroot – Wikipedia  
-[https://en.wikipedia.org/wiki/Chroot]
-(https://en.wikipedia.org/wiki/Chroot)
+[https://en.wikipedia.org/wiki/Chroot](https://en.wikipedia.org/wiki/Chroot)
 
 This is the article where I learned how to start a script in the chroot environment: [solved] a simple installation script not working / Installation / Arch Linux Forums  
-[https://bbs.archlinux.org/viewtopic.php?id=204252]
-(https://bbs.archlinux.org/viewtopic.php?id=204252)
-
+[https://bbs.archlinux.org/viewtopic.php?id=204252](https://bbs.archlinux.org/viewtopic.php?id=204252)
