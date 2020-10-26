@@ -284,7 +284,7 @@ What happens here is:
   - `/mnt` as the mount point to start from
   - `/mnt/etc/fstab` where to write the output file
 
-#### Continued installation in chroot:
+### Continued installation in chroot:
 
 Now let’s work on this interesting section.
 
