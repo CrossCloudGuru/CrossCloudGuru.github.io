@@ -224,7 +224,7 @@ The target disk is now fully prepared and accessible to put the new system on to
 To speedup the downloads it is recommendable to use a repository mirror closer to where you are located. I live in the Netherlands and therefore it is beneficial to download from locally instead of trans-Atlantic from the USA.
 
 To figure out the fastest mirror close to you:
-Arch Linux – Mirror Status
+Arch Linux – Mirror Status  
 [https://www.archlinux.org/mirrors/status/](https://www.archlinux.org/mirrors/status)
 
 Or generate a mirror list by country (not used in the script):
