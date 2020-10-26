@@ -1,6 +1,6 @@
 ---
 title: "[3/3] Netboot Pi - Enable Raspberry Pi's to boot over the network"
-date: 2020-09-15T15:14:00-04:00
+date: 2020-09-15T15:00:00-04:00
 excerpt_separator: "<!--more-->"
 toc: true
 toc_icon: stream
