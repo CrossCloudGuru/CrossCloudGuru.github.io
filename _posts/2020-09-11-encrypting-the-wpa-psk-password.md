@@ -17,7 +17,7 @@ There are a lot of things that can be done to make more difficult for people wit
 
 One of the golden rules concerning security is not to store passwords in plain text format.
 
-This article will explain how to remove the plain text passwords from the wpa_supplicant.conf file used for making connections to wireless networks.
+This article will explain how to remove the plain text passwords from the `wpa_supplicant.conf` file used for making connections to wireless networks.
 
 ```bash
 wpa_passphrase "<The SSID>" "<The PSK (password)>" | sudo tee -a /etc/wpa_supplicant/wpa_supplicant.conf
