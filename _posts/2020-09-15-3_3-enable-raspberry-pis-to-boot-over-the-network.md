@@ -1,5 +1,5 @@
 ---
-title: "[3/3] Enable Raspberry Pi's to boot over the network"
+title: "[3/3] Netboot Pi - Enable Raspberry Pi's to boot over the network"
 date: 2020-09-15T15:14:00-04:00
 excerpt_separator: "<!--more-->"
 toc: true

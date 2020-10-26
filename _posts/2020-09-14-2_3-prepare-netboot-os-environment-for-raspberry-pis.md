@@ -1,5 +1,5 @@
 ---
-title: "[2/3] Prepare netboot OS environment for Raspberry Pi’s"
+title: "[2/3] Netboot Pi - Prepare netboot OS environment for Raspberry Pi’s"
 date: 2020-09-15T15:14:00-04:00
 excerpt_separator: "<!--more-->"
 toc: true
@@ -298,5 +298,5 @@ In this GitHub repository you can find both files discussed in this article:
 ## Next ...
 
 The next article in the series will describe the steps required to enable Raspberry Pi’s to boot over the network.  
-[Enable Raspberry Pi's to boot over the network]({% post_url 2020-09-15-2_3-enable-raspberry-pis-to-boot-over-the-network %})
+[Enable Raspberry Pi's to boot over the network]({% post_url 2020-09-15-3_3-enable-raspberry-pis-to-boot-over-the-network %})
 
