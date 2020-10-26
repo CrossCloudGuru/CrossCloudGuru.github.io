@@ -12,10 +12,6 @@ tags:
   - vmware
 ---
 
-Here comes a link:
-
-[Link to post 1/3]({% post_url 2019-12-24-1_3-arch-linux-in-vmware-workstation-setup-the-virtual-machine %})
-
 This article is part of the series Arch Linux in a VMware Workstation. In the first article I will explain to you how I configured my VMware Workstation (on Linux) virtual machine that I use with my script to install Arch Linux.
 
 Configuration I use:
