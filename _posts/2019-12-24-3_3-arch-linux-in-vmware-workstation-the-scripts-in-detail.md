@@ -1,6 +1,6 @@
 ---
 title: "[3/3] Arch Linux in VMware Workstation - The scripts in detail"
-date: 2019-12-24T15:15:00-04:00
+date: 2019-12-24T15:20:00-04:00
 toc: true
 categories:
   - blog
