@@ -217,7 +217,7 @@ What happens here is:
     * `-p` specifies to create the full path of directories. (Is in this case obsolete as `/mnt` already exist. Good habits die hard)
     * `/mnt/boot` specifies the folder boot to be created under `/mnt`
 
-### The installation section:
+### The installation section
 
 The target disk is now fully prepared and accessible to put the new system on to it.
 
@@ -228,10 +228,10 @@ Arch Linux – Mirror Status
 [https://www.archlinux.org/mirrors/status/](https://www.archlinux.org/mirrors/status)
 
 Or generate a mirror list by country (not used in the script):
-Arch Linux – Pacman Mirrorlist Generator
-https://www.archlinux.org/mirrorlist/?country
+Arch Linux – Pacman Mirrorlist Generator  
+[https://www.archlinux.org/mirrorlist/?country](https://www.archlinux.org/mirrorlist/?country)
 
-Let\’s make a backup of the original mirror list first:
+Let’s make a backup of the original mirror list first:
 
 ```bash
 # Backup:
@@ -284,7 +284,7 @@ What happens here is:
   - `/mnt` as the mount point to start from
   - `/mnt/etc/fstab` where to write the output file
 
-### Continued installation in chroot:
+### Continued installation in chroot
 
 Now let’s work on this interesting section.
 
