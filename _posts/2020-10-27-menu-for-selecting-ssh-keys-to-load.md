@@ -30,7 +30,7 @@ As a solution to this dilemma I have chosen to work with a menu that presents me
 Let's dive in deeper how I added this approach to my system and how it helps me.
 
 
-### Steps in detail
+### The script step by step
 
 #### Location of ssh identities
 
