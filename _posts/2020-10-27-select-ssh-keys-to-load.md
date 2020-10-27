@@ -19,11 +19,15 @@ Using ssh keys for authentication in terminal sessions makes life simpler when s
 
 Having all these ssh identities added to your ssh-agent can have the disadvantage that your connection cannot establish because too many wrong keys have been presented to your targeted host before the one that opens the lock to that system is presented.
 
-One approach is to increase the number of retries before the ssh server of yoru targeted system shuts the door for you. Not sustainable when using a lot of test machines that are destroyed as quickly as you have created them.
+One approach is to increase the number of retries before the ssh server of your targeted system shuts the door on you. Not sustainable when using a lot of test machines that are destroyed as quickly as you have created them.
 
 From a security perspective, I do not want ALL my identities presented to systems that I do not own/manage. Therefore I do not add ALL my identities to my ssh-agent for "just in case ...". When a "Publick key denied" message is thrown back, I will have to load the identity that enables access to that system.
 
-Using the `~/.ssh/config` file can be of great help to assist with many hosts and identities. Although you can work with wildcards, managing your connections here can be cumbersome. Let's dive in deeper how I added this approach to my system and how it helps me.
+Using the `~/.ssh/config` file can be of great help to assist with many hosts and identities. Although you can work with wildcards, managing your connections here can be cumbersome. 
+
+As a solution to this dilemma I have chosen to work with a menu that presents me all the private identities I have on my system. From here I select the key I want to add and the script will start the process to add the key to the ssh-agent. If protected with a password, I will be asked to provide it to unlock the private key.
+
+Let's dive in deeper how I added this approach to my system and how it helps me.
 
 
 ### Steps in detail
