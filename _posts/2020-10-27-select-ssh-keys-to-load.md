@@ -1,8 +1,8 @@
 ---
 title: "Select SSH keys to load"
 date: 2020-10-27T13:41:16-04:00
-excerpt_separator: "<!--more-->"
-toc: truetoc_icon: stream
+toc: true
+toc_icon: stream
 categories:
   - blog
   - tutorial
