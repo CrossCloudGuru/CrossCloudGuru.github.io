@@ -22,5 +22,7 @@ Many years of working in service delivery of computing infrastructure technologi
 
 The views and opinions expressed on this blog are my own and do not reflect the views and opinions of any of my employers.
 
+### [LinkedIn]
+
 [https://www.linkedin.com/in/mtijbout/](https://www.linkedin.com/in/mtijbout/)
 
