@@ -34,7 +34,7 @@ Let's dive in deeper how I added this approach to my system and how it helps me.
 
 #### Location of ssh identities
 
-The default location of ssh identies for Linux or MacOS based systems using openssh is under your homedirectory in the hidden folder `.ssh`. In case you have a different organisation for your identities, you can change this value to support your needs:
+The default location of ssh identies for Linux or MacOS based systems using openssh is under your homedirectory in the hidden folder `.ssh`. In case you have a different location for your identities, you can change this value to support your needs:
 
 ```bash
 SOURCE_DIR="${HOME}/.ssh"
@@ -62,7 +62,7 @@ What happens here:
 
 #### Way out of the menu
 
-The scripts provides a menu list of all files we can work with. We need to have an option to exit the menu.
+The scripts provides a menu list of all files we can work with. We need to have an option to exit the menu. So we add an additonal item to the array for that purpose.
 
 ```bash
 ARR_FILES+=( "Exit selection ..." )
@@ -72,7 +72,8 @@ To add an additional value to the array we use the `+` before the `=` and includ
 
 #### Start the logic
 
-For ease of use I use functions to do the heavy lifting. I grouped the work in the function `fnCreateMenu` that is assisted by another function `fnAddSSH`.  
+For ease of use I use functions to make the logic easier to comprehend. I grouped the work in the function `fnCreateMenu` that is assisted by another function `fnAddSSH`.
+
 At the bottom of the script I call the main function:
 
 ```bash
