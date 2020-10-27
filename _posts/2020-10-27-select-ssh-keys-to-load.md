@@ -32,7 +32,7 @@ Let's dive in deeper how I added this approach to my system and how it helps me.
 
 ### Steps in detail
 
-#### Step 1. Location ssh identities
+#### Location of ssh identities
 
 The default location of ssh identies for Linux or MacOS based systems using openssh is under your homedirectory in the hidden folder `.ssh`. In case you have a different organisation for your identities, you can change this value to support your needs:
 
@@ -40,7 +40,7 @@ The default location of ssh identies for Linux or MacOS based systems using open
 SOURCE_DIR="${HOME}/.ssh"
 ```
 
-#### Read files in to array
+#### Read files into an array
 
 Next step is to load all private key identity files. These are filtered out
 
@@ -60,7 +60,7 @@ What happens here:
   * `${SOURCE_DIR}/*` specifies the location where to filter the files we want to check
 
 
-#### Way out
+#### Way out of the menu
 
 The scripts provides a menu list of all files we can work with. We need to have an option to exit the menu.
 
@@ -85,7 +85,7 @@ What happens here is:
 * All values of the array `ARR_FILES` are passed to it by specifying the selector `[@]` which means ALL
 
 
-#### Building the menu
+##### Building the menu
 
 The function `fnCreateMenu` builds the menu. What happens I will discuss step by step:
 
@@ -141,7 +141,7 @@ done
  * `fi` to close the end of the `if` loop
    * `done` to end the `select` statement 
 
-#### Adding the key to the ssh agent
+##### Adding the key to the ssh agent
 
 The function `fnAddSSH` adds the selected key to the ssh agent
 
