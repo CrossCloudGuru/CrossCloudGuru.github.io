@@ -55,4 +55,4 @@ Visitor comments may be checked through an automated spam detection service.
 
 ### How we protect your data
 
-This site and its content is served over Secure Sockets Layer (SSL) and uses 2-Factor Authentication for administrative login and configurations. Backups of the site is taken for restoration purposes and all backups are encrypted.
+This site and its content is served over Secure Sockets Layer (SSL) and uses 2-Factor Authentication for administrative login and configurations. <!-- Backups of the site is taken for restoration purposes and all backups are encrypted. -->
