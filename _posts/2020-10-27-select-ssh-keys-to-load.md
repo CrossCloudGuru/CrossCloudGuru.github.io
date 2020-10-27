@@ -159,7 +159,23 @@ fnAddSSH() {
   * where `ssh-add` is the actual command to add the key to the ssh agent, and
   * `$option` is the key name with full path
 
-This concludes the explanation of the script. 
+This concludes the explanation of the script.
+
+### Accessible system wide
+
+The whole purpose is making it easier to load identities to the ssh-agent. Preferably form anywhere on your system where you are currently working. For example in your GitHub repostiory somewhere in a directory tree. The best way is to add this script to a directory that is part of your `$PATH`.
+
+When using the `bash` shell the `.bashrc` file will automatically add the directory `bin` to your `$PATH` if the folder exists under the root of your homedirectory.
+
+```bash
+cp add-ssh.sh ~/bin/add-ssh
+chmod +x ~/bin/add-ssh
+```
+
+* Copy the file from the location where it is to your `bin` directory under your homedirectory `~/bin/`
+* Make the file executable with `chmod +x`
+
+Now the script can be called from anywhere on your system and will present you the options to choose from.
 
 ### The full script
 
