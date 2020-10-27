@@ -16,7 +16,7 @@ Many years of working in service delivery of computing infrastructure technologi
 
 ### [Privacy Policy]
 
-[https://crosscloud.guru/privacy-policy](https://crosscloud.guru/privacy-policy)
+[https://blog.crosscloud.guru/privacy/](https://blog.crosscloud.guru/privacy/)
 
 ### [Disclaimer]
 

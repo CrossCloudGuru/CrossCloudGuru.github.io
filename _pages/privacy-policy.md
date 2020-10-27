@@ -8,18 +8,16 @@ author_profile: true
 
 ## Who we are
 
-The website address is: [https://crosscloud.guru](), owned by Marco Tijbout.
+The website address is: [https://blog.crosscloud.guru](https://blog.crosscloud.guru), owned by Marco Tijbout.
 
 
-
-
-What personal data we collect and why we collect it
+## What personal data we collect and why we collect it
 
 ### Comments
 
 When visitors leave comments on the site we collect the data shown in the comments form, and also the visitor’s IP address and browser user agent string to help spam detection.
 
-An anonymized string created from your email address (also called a hash) may be provided to the Gravatar service to see if you are using it. The Gravatar service privacy policy is available here: https://automattic.com/privacy/. After approval of your comment, your profile picture is visible to the public in the context of your comment.
+An anonymized string created from your email address (also called a hash) may be provided to the Gravatar service to see if you are using it. The Gravatar service privacy policy is available here: [https://automattic.com/privacy/](https://automattic.com/privacy/). After approval of your comment, your profile picture is visible to the public in the context of your comment.
 
 ### Media
 
