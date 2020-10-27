@@ -25,7 +25,7 @@ From a security perspective, I do not want ALL my identities presented to system
 
 Using the `~/.ssh/config` file can be of great help to assist with many hosts and identities. Although you can work with wildcards, managing your connections here can be cumbersome. 
 
-As a solution to this dilemma I have chosen to work with a menu that presents me all the private identities I have on my system. From here I select the key I want to add and the script will start the process to add the key to the ssh-agent. If protected with a password, I will be asked to provide it to unlock the private key.
+As a solution to this dilemma I have chosen to work with a menu that presents me all the private identities I have on my system. From here I select the key I want to add and the script will start the process to add the key to the ssh-agent. If protected with a password, I will be prompted for the password to unlock the private key.
 
 Let's dive in deeper how I added this approach to my system and how it helps me.
 
