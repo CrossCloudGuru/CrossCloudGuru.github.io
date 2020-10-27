@@ -18,14 +18,14 @@ Below I will go step by step through the script. At the bottom of the article yo
 
 ## The script step by step
 
-**Step 1.** Store the current date and time for consumption
+### Step 1. Store the current date and time for consumption
 
 ```bash
 # Current date and time of script execution
 DATETIME=`date +%Y%m%d_%H%M&`
 ```
 
-**Step 2.** Display terminal type
+### Step 2. Display terminal type
 
 ```bash
 # Display current terminal type:
@@ -39,21 +39,21 @@ Output:
 $ echo $TERM
 xterm-256color
 ```
-**Step 3.** Backup the current terminal settings in a backup file
+### Step 3. Backup the current terminal settings
 
 ```bash
 # Store the current terminal settings in a backup file
 infocmp -x $TERM > terminal-settings.backup-${DATETIME}
 ```
 
-**Step 4.** Create second copy to work with
+### Step 4. Create second copy to work with
 
 ```bash
 # Store the current terminal settings in a file to work with
 infocmp -x $TERM > terminal-settings.new-${DATETIME}
 ```
 
-**Step 5.**
+### Step 5. Value of setting
 From this point it gets a little more tricky.
 
 If you type `man clear` you will see that the manual states:
@@ -70,7 +70,7 @@ We are going to remove this E3 capability and we store the specific string in a 
 VALUE='E3=\\E\[3J, '
 ```
 
-**Step 6.** Search for and remove the string that controls the capability
+### Step 6. Search for and remove the string that controls the setting
 
 Now that we are on the topic how sed handles special characters, it is also a challenge to work with variables. In this case the variable is incorporated and with the additional escaped characters in the variable it will consume the string to search for as we want it to.
 
@@ -79,7 +79,7 @@ Now that we are on the topic how sed handles special characters, it is also a ch
 sed -i '/'"$VALUE"'/s///g' terminal-settings.new-${DATETIME}
 ```
 
-**Step 7.** Load the settings into the configuration
+### Step 7. Load the settings into the configuration
 The now modified file needs to be loades as the new settings.
 
 ```bash 
@@ -87,7 +87,7 @@ The now modified file needs to be loades as the new settings.
 sudo tic -x terminal-settings.new-${DATETIME}
 ```
 
-**Step 8.** Restart the terminal to take changes into effect.
+### Step 8. Restart the terminal to take changes active
 Once back with a new fresh terminal session you will keep your whole screen history even when you type `clear`.
 
 ## The full script
