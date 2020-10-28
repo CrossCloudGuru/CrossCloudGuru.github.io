@@ -40,3 +40,8 @@
 
   </body>
 </html>
+
+<!-- MT: Enable mermaid graphs -->
+{% if page.mermaid == true %}
+{% include markdown-enhancements/mermaid.html %}
+{% endif %}

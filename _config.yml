@@ -158,6 +158,9 @@ exclude:
   - tmp
   - /docs # ignore Minimal Mistakes /docs
   - /test # ignore Minimal Mistakes /test
+  - LICENSE.md
+  - README.md
+  - "*.draft.md"
 keep_files:
   - .git
   - .svn
@@ -267,3 +270,4 @@ defaults:
       comments: # true
       share: true
       related: true
+      mermaid: true
