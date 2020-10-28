@@ -222,4 +222,3 @@ graph TD;
     B-->D;
     C-->D;
 ```
-{: .mermaid}
