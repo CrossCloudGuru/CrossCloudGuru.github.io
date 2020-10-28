@@ -3,6 +3,7 @@ title: "Menu for selecting SSH keys to load"
 date: 2020-10-27T13:41:16-04:00
 toc: true
 toc_icon: stream
+mermaid: true
 categories:
   - blog
   - tutorial
@@ -213,7 +214,7 @@ fnCreateMenu "${ARR_FILES[@]}"
 
 ---
 
-```sequence
+```sequenceDiagram
 Alice->Bob: Hello Bob, how are you?
 Note right of Bob: Bob thinks
 Bob-->Alice: I am good thanks!
