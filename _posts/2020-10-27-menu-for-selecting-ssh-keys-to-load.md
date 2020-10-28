@@ -211,14 +211,3 @@ fnCreateMenu () {
 
 fnCreateMenu "${ARR_FILES[@]}"
 ```
-
----
-20201028-1459
-
-```mermaid
-graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
-```
