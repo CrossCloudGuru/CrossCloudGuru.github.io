@@ -15,7 +15,7 @@ excerpt: "This article will show how to disable the behaviour of clear avoiding 
 
 When working in a terminal shell trying and testing it can be very usefull to scroll back through all output that has passed by. Still you want to have an empty terminal from time to time when starting your next test. Usually you do this with `Ctrl-L` or with `clear`. There is an important difference between the two.
 
-Although the option "limit scrollback to" is unchecked the terminal is not consistent in keeping this promise when using the previous commands.  This is because the command `clear` has it’s own opinion about this what to do. 
+Although the option "limit scrollback to" is unchecked the terminal preferences, it is not consistent in keeping this promise when using the previous commands. This is because the command `clear` has it’s own opinion about this what to do. 
 
 This article will describe how to make adjustments to the terminal settings in the shell to have `clear` behave like `Ctrl-L`in this case: leave the scrollback history alone and show all when scrolling back. For repeatable success, I have created a script for it that I will explain in detail here. At the bottom of the article you can find the whole script.
 
