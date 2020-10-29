@@ -61,7 +61,7 @@ What happens here:
   * `${SOURCE_DIR}/*` specifies the location where to filter the files we want to check
 
 
-#### Way out of the menu
+#### Option to exit the menu
 
 The scripts provides a menu list of all files we can work with. We need to have an option to exit the menu. So we add an additonal item to the array for that purpose.
 
