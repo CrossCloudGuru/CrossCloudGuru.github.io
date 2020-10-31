@@ -1,6 +1,7 @@
 ---
 title: "Error when updating: dpkg error processing package install-info error exit status 127"
-date: 2019-07-06T15:00:00-04:00
+original_date: 2019-07-06T15:00:00-04:00
+date: 2020-10-31T23:28:02-04:00
 #classes: wide
 toc: false     # Show Table of Contents true|false
 toc_icon: stream     # Specify the character to show as ToC logo
