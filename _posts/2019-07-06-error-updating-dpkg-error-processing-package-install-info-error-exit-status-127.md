@@ -29,4 +29,6 @@ On AskUbuntu.com I found a solution that I have adapted that works for me:
 sudo mv /var/lib/dpkg/info/install-info.postinst /var/lib/dpkg/info/install-info.postinst.bad-`date +%Y%m%d_%H%M%S`
 ```
 
+What I do here is that I move the file `install-info.postinst` file out of the way and append .`bad-<date and time>` to the end for future reference.
+
 After moving the file, repeat the update process again and it will work.
