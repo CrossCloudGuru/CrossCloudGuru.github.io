@@ -269,6 +269,8 @@ defaults:
     values:
       layout: single
       author_profile: true
+      toc: true             # true, false (default)- Enable Table of Contentents
+      toc_icon: stream      # Default icon for ToC
       read_time: true
       show_date: true
       comments: # true
