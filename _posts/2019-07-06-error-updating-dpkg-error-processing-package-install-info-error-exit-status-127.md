@@ -26,7 +26,6 @@ On AskUbuntu.com I found a solution that I have adapted that works for me:
 
 ```bash
 sudo mv /var/lib/dpkg/info/install-info.postinst /var/lib/dpkg/info/install-info.postinst.bad-`date +%Y%m%d_%H%M%S`
-
 ```
 
 After moving the file, repeat the update process again and it will work.
