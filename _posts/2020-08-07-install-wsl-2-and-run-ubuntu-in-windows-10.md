@@ -11,14 +11,14 @@ categories:
 tags:
   - bash
   - linux
-excerpt: "This is the summary of the article as shown on the pages of the blog."
+excerpt: "Running Windows 10 and want to have the goodness of Ubuntu Linux at your fingertips, this article describes how to install WSL and Ubuntu on Windows 10."
 ---
 
 In this article I take you through the steps I took to install WSL 2 in a Windows 10 virtual machine and download a Ubuntu 20.04 Linux image to get started. I use VMware Fusion on a Mac.
 
 Microsoft has overhauled their Windows Subsystem for Linux (aka WSL) recently. There are some significant updates in this update. One of them is that it runs with an acutal Linux kernel. Build by Microsoft, but anyway. It is time to test is out. WSL can be installed on most Windows 10 flavours but not all. Check upfront if your version is suitable.
 
-## Step 1. Prepare virtual machine
+### Step 1. Prepare virtual machine
 
 As test machine I have cloned an up-to-date Windows 10 Enterprise VM. While still powered off I have selected the "Enable hypervisor applications in this virtual machine"
 
@@ -30,7 +30,7 @@ Next click on "Advanced options" to see additional options we are looing for Her
 
 ![Advanced settings - Enable hypervisor applications]({{ site.url }}{{ site.baseurl }}/assets/images/articles/2020-08-07-wslOnWin10/FusionHypervisorSettings02.jpg)
 
-## Step 2. Install WSL on Windows 10
+### Step 2. Install WSL on Windows 10
 
 Now the virtual machine can be started. Once started, log in.
 
@@ -59,13 +59,13 @@ s e   v i s i t   h t t p s : / / a k a . m s / w s l 2
 
 Now I rebooted the virtual machine.
 
-## Step 3. Install Ubuntu on Windows 10
+### Step 3. Install Ubuntu on Windows 10
 
 After logging back in, open Microsoft Store, search for Ubuntu, and select the "Ubuntu 20.04 LTS" app:
 
 ![Microsoft Store - Searching for Ubuntu]({{ site.url }}{{ site.baseurl }}/assets/images/articles/2020-08-07-wslOnWin10/msStoreUbuntu01.jpg)
 
-## Step 4. Launching Ubuntu
+### Step 4. Launching Ubuntu
 
 Now we want to start Ubuntu. There are two options. Right after the installation from the Microsoft Store or further down the road from the Start Menu.
 
@@ -78,7 +78,7 @@ Now we want to start Ubuntu. There are two options. Right after the installation
 ![Launching Ubuntu - From the Microsoft Store]({{ site.url }}{{ site.baseurl }}/assets/images/articles/2020-08-07-wslOnWin10/win10WSL2-Ubuntu01.jpg)
 
 
-## The Result
+### The Result
 
 It might take a while the first run as some stuff has to be installed and configured in the background. But if everything went fine, you should see the terminal prompt and check what is running.
 
