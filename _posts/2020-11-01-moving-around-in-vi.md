@@ -1,7 +1,7 @@
 ---
 title: "Moving around in vi(m)"
 original_date_label: 2020-11-01T11:33:57-04:00
-#last_modified_at: 2020-10-31T23:28:02-04:00
+last_modified_at: 2020-11-01T11:54:50-04:00
 #classes: wide
 #toc: false               # Override from default setting: True
 #toc_icon: stream         # Override from default setting: stream
@@ -46,3 +46,8 @@ Although there are many editors available on the Linux commandline, there are so
 | x | delecte current character
 | dw | delete current word |
 | cw | change current word |
+| yy | copy current line |
+| p | paste current buffer |
+| dd | delete current line |
+| 10dd | delete 10 lines from current position |
+| u | undo last action |
