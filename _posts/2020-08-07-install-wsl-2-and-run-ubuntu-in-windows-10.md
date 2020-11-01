@@ -11,7 +11,7 @@ categories:
 tags:
   - bash
   - linux
-excerpt: "Running Windows 10 and want to have the goodness of Ubuntu Linux at your fingertips, this article describes how to install WSL and Ubuntu on Windows 10."
+excerpt: "Running Windows 10 and want to have the goodness of Ubuntu Linux at your fingertips? This article describes how to install WSL and Ubuntu on Windows 10."
 ---
 
 In this article I take you through the steps I took to install WSL 2 in a Windows 10 virtual machine and download a Ubuntu 20.04 Linux image to get started. I use VMware Fusion on a Mac. Of course you can do this on a native Windows 10 insstallation.
