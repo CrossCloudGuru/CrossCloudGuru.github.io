@@ -51,3 +51,5 @@ Although there are many editors available on the Linux commandline, there are so
 | dd | delete current line |
 | 10dd | delete 10 lines from current position |
 | u | undo last action |
+
+The above are just a few of many keybindings that vi / vim has to offer. I had this picture printed out and on my desk to get familiar. It automatically moves into the background (under a pile of rubble).
