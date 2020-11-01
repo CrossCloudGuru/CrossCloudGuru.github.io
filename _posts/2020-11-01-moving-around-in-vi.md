@@ -3,7 +3,7 @@ title: "Moving around in vi(m)"
 original_date_label: 2020-11-01T11:33:57-04:00
 #last_modified_at: 2020-10-31T23:28:02-04:00
 #classes: wide
-#toc: true                # Override from default setting: True
+toc: false               # Override from default setting: True
 #toc_icon: stream         # Override from default setting: stream
 categories:
   - blog
