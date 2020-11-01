@@ -22,3 +22,7 @@ As test machine I have cloned an up-to-date Windows 10 Enterprise VM. While stil
 
 Open the settings for your virtual machine and select "Processors & Memory"
 
+![alt]({{ site.url }}{{ site.baseurl }}/assets/images/articles/ArchTerm02.png)
+
+
+[FusionHypervisorSettings.jpg](https://github.com/CrossCloudGuru/CrossCloudGuru.github.io/blob/master/assets/images/articles/2020-08-07-wslOnWin10/FusionHypervisorSettings.jpg)
