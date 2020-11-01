@@ -1,5 +1,5 @@
 ---
-title: "Install WSL 2 and run Ubuntu in Windows 10"
+title: "Install WSL 2 and run Ubuntu on Windows 10"
 original_date_label: 2020-08-07T15:00:00-04:00
 last_modified_at: 2020-11-01T16:17:45-04:00
 #classes: wide
