@@ -145,4 +145,5 @@ sudo tic -x terminal-settings.new-${DATETIME}
 # Restart the terminal to take changes into effect.
 ```
 
-
+Find it on GitHub:
+[CrossCloudGuru/how-to-stop-clear-from-clearing-scrollback-buffer: How to stop clear from clearing scrollback buffer](https://github.com/CrossCloudGuru/how-to-stop-clear-from-clearing-scrollback-buffer)
