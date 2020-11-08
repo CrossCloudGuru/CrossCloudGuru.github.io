@@ -1,5 +1,5 @@
 ---
-title: "nable VNC on Ubuntu Desktop"
+title: "Enable VNC on Ubuntu Desktop"
 original_date_label: 2020-09-07T15:00:00-04:00
 last_modified_at: 2020-11-08T20:42:40-04:00 
 #classes: wide
