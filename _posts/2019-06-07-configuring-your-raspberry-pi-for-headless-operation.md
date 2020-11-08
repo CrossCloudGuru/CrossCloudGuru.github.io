@@ -12,7 +12,7 @@ tags:
   - bash
   - linux
   - rpi
-excerpt: "For my demos I use a Raspberry Pi with a SenseHAT attached to it. Every time a new update of the software becomes available, I want to make a backup of my Raspberry Pi SD card before I install the latest and greatest."
+excerpt: "Working with a Raspberry Pi usually does not require a keayboard, mouse and display for me. This article will learn you how to modify an OS image that will be capably booting into a working system."
 ---
 
 It is not always convenient to have an additional display keyboard and maybe a mouse occupying desk space. If you are like me, most I do is via a terminal session anyway. If needed I can start the X (graphical) environment and use VNC to have my desktop displayed in a window on my Mac (or Windows for that matter).
