@@ -55,7 +55,7 @@ Next error I encountered is that RPI-Clone did not want to proceed with my SD ca
 
 <!-- [Writing and backup SD cards for your Raspberry Pi]: {% post_url 2019-06-07-write-and-backup-sd-cards-for-your-raspberry-pi %} -->
 <!-- [Configuring your Raspberry Pi for headless operation]: {% post_url 2019-06-07-configuring-your-raspberry-pi-for-headless-operation %} -->
-[Connecting your Pi to the Personal Hotspot on an iPhone]: {% post_url 2019-03-16-connecting-your-pi-to-the-personal-hotspot-on-an-iphone %}
+<!-- [Connecting your Pi to the Personal Hotspot on an iPhone]: {% post_url 2019-03-16-connecting-your-pi-to-the-personal-hotspot-on-an-iphone %} -->
 [Show the IP address at boot on the SenseHAT attached to your Raspberry Pi]: {% post_url 2019-06-10-show-the-ip-address-at-boot-on-the-sensehat-attached-to-your-raspberry-pi %}
 [rpi-clone]: https://github.com/billw2/rpi-clone
 [Clone a running Raspberry Pi with rpi-clone]: {% 2019-06-10-clone-a-running-raspberry-pi-with-rpi-clone %}
