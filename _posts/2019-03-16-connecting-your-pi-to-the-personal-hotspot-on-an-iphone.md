@@ -3,7 +3,7 @@ title: "Connecting your Pi to the Personal Hotspot on an iPhone"
 original_date_label: 2019-03-16T15:00:00-04:00
 last_modified_at: 2020-11-08T21:50:02-04:00
 #classes: wide
-#toc: false               # Override from default setting: True
+toc: false               # Override from default setting: True
 #toc_icon: stream         # Override from default setting: stream
 categories:
   - blog
