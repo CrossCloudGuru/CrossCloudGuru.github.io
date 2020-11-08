@@ -23,7 +23,7 @@ sudo apt-get install openssh-server
 After installation, check the status if the service is running:
 
 ```bash
-sudo service ssh status
+sudo systemctl status ssh
 ```
 
 ![Ubuntu Terminal - systemctl status ssh]({{ site.url }}{{ site.baseurl }}/assets/images/articles/2019-01-21-SSHonUbuntu/statusSSHonUbuntu01.jpg)
@@ -35,5 +35,5 @@ sudo nano /etc/ssh/sshd_config
 When finished, make sure to restart the service to apply the changes made to the config file:
 
 ```bash
-sudo service ssh restart
+sudo systemctl restart ssh
 ```
