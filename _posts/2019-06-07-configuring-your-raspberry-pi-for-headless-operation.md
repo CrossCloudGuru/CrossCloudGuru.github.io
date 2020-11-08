@@ -3,7 +3,7 @@ title: "Configuring your Raspberry Pi for headless operation"
 original_date_label: 2019-06-10T15:00:00-04:00
 last_modified_at: 2020-11-08T21:50:02-04:00
 #classes: wide
-#toc: false               # Override from default setting: True
+toc: false               # Override from default setting: True
 #toc_icon: stream         # Override from default setting: stream
 categories:
   - blog

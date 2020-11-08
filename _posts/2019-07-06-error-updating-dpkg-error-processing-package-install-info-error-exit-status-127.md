@@ -26,9 +26,9 @@ dpkg: error processing package install-info (--configure):
 On AskUbuntu.com I found a solution that I have adapted that works for me:
 
 ```bash
-sudo mv /var/lib/dpkg/info/install-info.postinst /var/lib/dpkg/info/install-info.postinst.bad-`date +%Y%m%d_%H%M%S`
+sudo mv /var/lib/dpkg/info/install-info.postinst /var/lib/dpkg/info/install-info.postinst.bak-`date +%Y%m%d_%H%M%S`
 ```
 
-What I do here is that I move the file `install-info.postinst` file out of the way and append .`bad-<date and time>` to the end for future reference.
+What I do here is that I move the file `install-info.postinst` file out of the way and append .`bak-<date and time>` to the end for future reference.
 
 After moving the file, repeat the update process again and it will work.

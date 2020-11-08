@@ -2,7 +2,7 @@
 title: "Encrypting the WPA PSK password"
 date: 2020-09-11T15:00:00-04:00
 excerpt_separator: "<!--more-->"
-# toc: true
+toc: false
 # toc_icon: stream
 categories:
   - blog
