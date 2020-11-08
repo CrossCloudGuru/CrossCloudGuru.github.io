@@ -3,7 +3,7 @@ title: "Enable VNC on Ubuntu Desktop"
 original_date_label: 2020-09-07T15:00:00-04:00
 last_modified_at: 2020-11-08T20:42:40-04:00 
 #classes: wide
-#toc: false                # Override from default setting: True
+#toc: false               # Override from default setting: True
 #toc_icon: stream         # Override from default setting: stream
 categories:
   - blog
@@ -12,10 +12,10 @@ tags:
   - vnc
   - ubuntu
   - linux
-excerpt: "Enabling VNC on Ubuntu is really easy and most articles out there on the internet show you just that. If you actually want to access your Ubuntu macine over VNC there is more to it. This article will show you how."
+excerpt: "In this article I will explain how I enabled VNC connectivity to my graphical Ubuntu environment."
 ---
 
-In this article I will explain how I enabled VNC connectivity to my graphical Ubuntu environment.
+Enabling VNC on Ubuntu is really easy and most articles out there on the internet show you just that. If you actually want to access your Ubuntu macine over VNC there is more to it. This article will show you how.
 
 Trying to enable and access your Ubuntu graphical environment via VNC can be a little challenging. Ubuntu takes security serious enforcing encryption for VNC connections. In my search to enable using VNC for remote management I found many suggestions that suggested you to install additional Graphical Server software etc, etc. Many of these suggestions did not work or gave me unsatisfying results.
 
