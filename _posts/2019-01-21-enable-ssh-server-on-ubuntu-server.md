@@ -9,6 +9,7 @@ categories:
   - blog
   - tutorial
 tags:
+  - ssh
   - bash
   - linux
 #excerpt: "This is the summary of the article as shown on the pages of the blog."
