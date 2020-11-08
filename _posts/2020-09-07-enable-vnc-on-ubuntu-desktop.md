@@ -12,7 +12,7 @@ tags:
   - vnc
   - ubuntu
   - linux
-excerpt: "In this article I will explain how I enabled VNC connectivity to my graphical Ubuntu environment."
+excerpt: "Enabling VNC on Ubuntu is really easy and most articles out there on the internet show you just that. If you actually want to access your Ubuntu macine over VNC there is more to it. This article will show you how."
 ---
 
 Enabling VNC on Ubuntu is really easy and most articles out there on the internet show you just that. If you actually want to access your Ubuntu macine over VNC there is more to it. This article will show you how.
