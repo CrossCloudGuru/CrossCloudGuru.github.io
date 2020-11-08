@@ -49,6 +49,8 @@ sudo chmod +x /usr/local/sbin/rpi-clone*
 I have inserted my second SD card into my USB SD card reader stick and plugged into the Raspberry Pi.
 This second SD card in the card reader presents itself on the system as device `sda`. Make sure you figure out what the device name for your target SD card is. 
 
+### Step 2. Clone the running system
+
 The next command I used to clone the running system to my target SD card:
 
 ```bash
