@@ -38,7 +38,7 @@ Next challenge: What is the IP address assigned to my Pi?
 There is no way to find on your iPhone what IP addresses it has assigned. From previous endeavours I already knew it would assign an address in the 172.20.10.x range. I tried to use from my laptop Angry IP Scanner to find any active IP addresses on the network. It found 120+. So old school trying to ssh to any address. Usually the iPhone does not assign addresses from the high end or random. So, after the 6th attempt I found it. 0 is the network, 3 was assigned to my laptop so 8 was the right one.
 
 As I do demos with Raspberry Pi’s with a SenseHAT attached to it, I have created a script that would display the current IP address on the SenseHAT’s display. To make it effective for that I create a service that starts as soon as the Raspberry Pi is connected to a network. It stops as soon as I log in to my Pi. My login script stops the service. Now I needed to get this on the fresh vanilla installation going. I copied the required files over to the correct locations. Guess what, the service does not start. After checking the number of files, their references, the permissions and even the content of all the files I still did not get it to work. Arrgh. Now what. Downloading an older image would again take a lot of time. Wi-Fi in hotel usually works fine for office stuff but not for downloading OS image files.
-(See article: Show the IP address at boot on the SenseHAT attached to your Raspberry Pi)
+(See article: [Show the IP address at boot on the SenseHAT attached to your Raspberry Pi])
 
 Back to the first challenge: How to fit an oversized image file?
 Googling around gave me a site with a nice procedure: Create an image from your SD card. Use gparted to shrink the partition in your image and then shave off the excessive size of the image. That could work and solve my problem. So, I tested first with the image from the freshly installed Pi. It worked like a charm and could successfully write the image to the SD card. Next was to try this on the image from my original (oversized) Pi. Guess what, it crashes with an error when trying to save the new partition size. Back to square one.
@@ -55,5 +55,6 @@ Next error I encountered is that RPI-Clone did not want to proceed with my SD ca
 [Writing and backup SD cards for your Raspberry Pi]: {% post_url 2019-06-07-write-and-backup-sd-cards-for-your-raspberry-pi %}
 [Configuring your Raspberry Pi for headless operation]: {% post_url 2019-06-07-configuring-your-raspberry-pi-for-headless-operation %}
 [Connecting your Pi to the Personal Hotspot on an iPhone]: {% post_url 2019-03-16-connecting-your-pi-to-the-personal-hotspot-on-an-iphone %}
+[Show the IP address at boot on the SenseHAT attached to your Raspberry Pi]: {% post_url 2019-06-10-show-the-ip-address-at-boot-on-the-sensehat-attached-to-your-raspberry-pi %}
 [rpi-clone]: https://github.com/billw2/rpi-clone
 [Clone a running Raspberry Pi with rpi-clone]: {% 2019-06-10-clone-a-running-raspberry-pi-with-rpi-clone %}
