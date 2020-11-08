@@ -65,5 +65,4 @@ Tip: When at home, make sure you have your personal hotspot disabled…
 Now with this configuration amended, the Raspberry Pi will now try to connect at boot to your personal hotspot first. When you connect your laptop to this hotspot too, both will be on the same network and able to communicate to each other. To find the Raspberry Pi used a network scanner tool called [Angry IP Scanner]. With the IP address found of the Raspberry Pi you can connect via SSH to it as usual.
 
 
-
 [Angry IP Scanner]: https://angryip.org/download
