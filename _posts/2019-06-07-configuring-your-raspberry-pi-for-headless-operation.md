@@ -64,6 +64,6 @@ Once written the image to the SD card, put it in the Raspberry Pi and boot it. S
 
 [Raspbian image]: https://downloads.raspberrypi.org/raspbian_latest
 [Raspberry Pi OS website]: https://www.raspberrypi.org/downloads/raspberry-pi-os/
-[see this article]: {% post_url 22019-03-16-connecting-your-pi-to-the-personal-hotspot-on-an-iphone %}
+[see this article]: {% post_url 2019-03-16-connecting-your-pi-to-the-personal-hotspot-on-an-iphone %}
 [my article writing and making backups of SD cards]: {% post_url 2019-06-07-write-and-backup-sd-cards-for-your-raspberry-pi %}
 
