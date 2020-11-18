@@ -19,7 +19,7 @@ Configuration I use:
 
 For this article to follow along, I assume that you have completed the article Setup the virtual machine to continue.
 
-Steps in this article: 
+Steps in this article:
 
 1. Accessing the VM from a terminal
 1. Synchronize the time
