@@ -80,7 +80,7 @@ For the default Terminal open the preferences and follow the steps:
 * Select Keyboard on the right
 * Select Use Option as Meta key
 
-![MacOS terminal settings for Alt key](https://raw.githubusercontent.com/CrossCloudGuru/CrossCloudGuru.github.io/master/assets/images/articles/2021-01-16-moving-around-bash/SettingsDefTerminal-1-1024x902)
+![MacOS terminal settings for Alt key](https://raw.githubusercontent.com/CrossCloudGuru/CrossCloudGuru.github.io/master/assets/images/articles/2021-01-16-moving-around-bash/SettingsDefTerminal-1-1024x902.jpg)
 
 For iTerm2 the steps are similar. Open the preferences and follow the steps:
 
@@ -89,7 +89,7 @@ For iTerm2 the steps are similar. Open the preferences and follow the steps:
 * Click on the Keys configuration on the right.
 * Select for both Option keys the Esc+ option on the right. (Here selecting Meta does not get the result we are looking for.
 
-![MacOS iTerm2 settings for Alt key](https://raw.githubusercontent.com/CrossCloudGuru/CrossCloudGuru.github.io/master/assets/images/articles/2021-01-16-moving-around-bash/SSettingsiTerm2-1-1024x587.jpg)
+![MacOS iTerm2 settings for Alt key](https://raw.githubusercontent.com/CrossCloudGuru/CrossCloudGuru.github.io/master/assets/images/articles/2021-01-16-moving-around-bash/SettingsiTerm2-1-1024x587.jpg)
 
 Sources:
 
