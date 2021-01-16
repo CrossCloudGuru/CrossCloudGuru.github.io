@@ -91,7 +91,7 @@ For iTerm2 the steps are similar. Open the preferences and follow the steps:
 
 ![MacOS iTerm2 settings for Alt key](https://raw.githubusercontent.com/CrossCloudGuru/CrossCloudGuru.github.io/master/assets/images/articles/2021-01-16-moving-around-bash/SettingsiTerm2-1-1024x587.jpg)
 
-Sources:
+### Sources
 
 * [Bash Shortcuts For Maximum Productivity – Skorks](https://skorks.com/2009/09/bash-shortcuts-for-maximum-productivity/)
 * [fliptheweb/bash-shortcuts-cheat-sheet: Useful shortcuts for bash/zsh](https://github.com/fliptheweb/bash-shortcuts-cheat-sheet)
