@@ -48,7 +48,7 @@ If you have multiple keys you require for accessing different environments/hosts
 ## The input file
 The input file is a file that is sourced in the script to read additional information. I use separate input files for different environments or sets of hosts I want to target with actions. How you name the input file is not important but I recomend you to use a descriptive name. Usually I call my scripts `<logical-group-naming>.env` to keep them apart and logical to find.
 
-Let me show the input file here that I use for example first. I have named it `cloud-management-servers.env`:
+Let me show the example input file for this article. I have named it `cloud-management-servers.env`:
 
 ```bash
 # Version: 20210128-1608
