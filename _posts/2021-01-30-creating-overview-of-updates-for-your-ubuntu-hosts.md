@@ -32,8 +32,8 @@ Assumptions:
 * The ssh key should already be loaded to your ssh-agent before executing the script.
 <!-- {: .notice} -->
 
-Tip:  
-If you have multiple keys you require for accessing different environments/hosts, read this article that I have here.
+**Tip:**  
+If you have multiple keys you require for accessing different environments/hosts, read this article that I have written earlier:
 [Menu for selecting SSH keys to load - CrossCloud.Guru Blog](https://blog.crosscloud.guru/blog/tutorial/menu-for-selecting-ssh-keys-to-load/)
 {: .notice--info}
 
