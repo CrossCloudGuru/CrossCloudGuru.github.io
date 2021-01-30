@@ -1,5 +1,5 @@
 ---
-title: "Add the title as shown on the blog pages here"
+title: "Creating overview of updates for your Ubuntu hosts"
 original_date_label: 2019-07-06T15:00:00-04:00
 last_modified_at: 2020-10-31T23:28:02-04:00
 #classes: wide
