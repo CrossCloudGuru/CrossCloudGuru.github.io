@@ -16,15 +16,23 @@ tags:
 excerpt: "Having multipe debian based systems you want to update and want to check what updates are available? This article will tell you how to get lists."
 ---
 
-Recently I had a situation where I wanted to have an overview of all security updates there are available for my Ubuntu servers. For that I have created the script I will explain here in this article.
+## Introduction
+Recently I had a situation where I wanted to have an overview of all security updates available per host for my Ubuntu servers. 
+
+There are a vast number of reasons why overviews like these are of interest when working with methodologies like ITIL, Site Reliability Engineering (SRE) or just common sense.
+
+The goal of this article is using this example to explain how I made the script. With some imagination you can turn it to fit an other goal but with a similar approach. Let's crack on...
 
 In the end you will need to have two files:
 1. Input file
 2. The script
 
-The script is where all the magic happens and the input file contains the array of hosts that need to be checked. That was a requirement to my original challence as there are multiple environments to check and with that the reporting will be grouped per environment.
+The script is where all the magic happens and the input file contains the array of hosts that need to be checked. I had the requirement to have one script that can be used for multiple environments e.g. groups of hosts. 
 
-When the script is run, it will generate per host an output file with all the security upates for that host, it will genarate a file that lists all hosts that have a reboot already pending and it will generate a file combining all the information from the previous outputs.
+When the script is executed, it will generate three types of output:
+1.  Per host an output file with all the security upates for that host
+2.  It will genarate a file that lists all hosts that have a reboot already pending
+3.  It will generate a file combining all the information from the previous outputs into one
 
 Assumptions:
 
