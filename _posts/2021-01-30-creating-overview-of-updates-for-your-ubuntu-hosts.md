@@ -48,7 +48,33 @@ If you have multiple keys you require for accessing different environments/hosts
 ## The input file
 The input file is a file that is sourced in the script to read additional information. I use separate input files for different environments or sets of hosts I want to target with actions. How you name the input file is not important but I recomend you to use a descriptive name. Usually I call my scripts `<logical-group-naming>.env` to keep them apart and logical to find.
 
+Let me show the input file here that I use for example first. I have named it `cloud-management-servers.env`:
 
+```bash
+# Version: 20210128-1608
+# Author: Marco Tijbout
+# This file contains input variables for the listSecurityUpdates.sh script.
+
+# Hosts in the cluster specified as an array:
+HOSTS=( 192.168.13.6 \
+        192.168.13.8 \
+        192.168.13.9 \
+        192.168.13.10 \
+        192.168.13.11 \
+        192.168.13.14 \
+        192.168.13.15 )
+
+```
+
+The commented lines contain information on what the purpose is of it and a version number. In this case I use a simple system to use the current date and time to show me how recent this version is.
+
+On working with variables in bash you could write a book by it self. I will omit that.
+Here I specify an array containing IP addresses of the hosts I want to check and for readability I continue on a new line after each IP address until the end of the array. The items in the array in this example are separated by a space.
+
+
+
+
+## The script
 
 Find it on GitHub:  
 [CrossCloudGuru/menu-for-selecting-ssh-keys-to-load: Menu for selecting SSH keys to load](https://github.com/CrossCloudGuru/menu-for-selecting-ssh-keys-to-load)
