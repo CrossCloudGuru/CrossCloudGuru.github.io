@@ -19,8 +19,8 @@ excerpt: "Having multipe debian based systems you want to update and want to che
 Recently I had a situation where I wanted to have an overview of all security updates there are available for my Ubuntu servers. For that I have created the script I will explain here in this article.
 
 In the end you will need to have two files:
-1. The script
-2. Input file
+1. Input file
+2. The script
 
 The script is where all the magic happens and the input file contains the array of hosts that need to be checked. That was a requirement to my original challence as there are multiple environments to check and with that the reporting will be grouped per environment.
 
@@ -37,7 +37,8 @@ If you have multiple keys you require for accessing different environments/hosts
 [Menu for selecting SSH keys to load - CrossCloud.Guru Blog](https://blog.crosscloud.guru/blog/tutorial/menu-for-selecting-ssh-keys-to-load/)
 {: .notice--info}
 
-
+## The input file
+The input file is a file that is sourced in the script to read additional information. I use separate input files for different environments or sets of hosts I want to target with actions. How you name the input file is not important but I recomend you to use a descriptive name. Usually I call my scripts `<logical-group-naming>.env` to keep them apart and logical to find.
 
 
 
