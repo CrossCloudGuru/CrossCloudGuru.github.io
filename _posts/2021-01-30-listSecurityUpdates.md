@@ -26,11 +26,13 @@ The script is where all the magic happens and the input file contains the array 
 
 When the script is run, it will generate per host an output file with all the security upates for that host, it will genarate a file that lists all hosts that have a reboot already pending and it will generate a file combining all the information from the previous outputs.
 
-Authentication:
-I assume SSH keys are used for authentication to the targeted hosts. So no username and password
+Assumptions:
+
+* For authentication I assume SSH keys are used to access the targeted hosts.
+* The ssh key should already be loaded to your ssh-agent before executing the script.
 {: .notice}
 
-> clear clears your screen if this is possible, including its scrollback buffer (if the extended “E3” capability is defined).
+clear clears your screen if this is possible, including its scrollback buffer (if the extended “E3” capability is defined).
 {: .notice--info}
 
 Tip:
