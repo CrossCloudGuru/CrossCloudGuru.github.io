@@ -30,16 +30,13 @@ Assumptions:
 
 * For authentication I assume SSH keys are used to access the targeted hosts.
 * The ssh key should already be loaded to your ssh-agent before executing the script.
-{: .notice}
-
-clear clears your screen if this is possible, including its scrollback buffer (if the extended “E3” capability is defined).
-{: .notice--info}
+<!-- {: .notice} -->
 
 Tip:
 If you have multiple keys you require for accessing different environments/hosts, read this article that I have here.
 Menu for selecting SSH keys to load - CrossCloud.Guru Blog
 https://blog.crosscloud.guru/blog/tutorial/menu-for-selecting-ssh-keys-to-load/
-
+{: .notice--info}
 
 
 
