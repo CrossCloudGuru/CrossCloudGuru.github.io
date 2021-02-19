@@ -140,7 +140,7 @@ There the provided argument is loaded as a source to the script. The old way of 
 ```bash
 # Specify the Sysadmin Admin credential details. While executing a password 
 # for the private key may be asked.
-USER=cloudiction
+USER=remoteUserName
 SSH_ID="~/.ssh/id_to_use"
 ADMIN="-i ${SSH_ID} ${USER}"
 echo -e "\n- Load SSH Agent ..."
