@@ -279,3 +279,7 @@ Output of finishing the script
 
 Find it on GitHub:  
 [https://github.com/CrossCloudGuru/DebianListUpdates](https://github.com/CrossCloudGuru/DebianListUpdates)
+
+
+*[SRE]: Site Reliability Engineering
+*[ITIL]: Information Technology Infrastructure Library
