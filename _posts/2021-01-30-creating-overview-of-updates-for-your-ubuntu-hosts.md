@@ -68,7 +68,7 @@ HOSTS=( 192.168.13.6 \
 The commented lines contain information on what the purpose is of it and a version number. In this case I use a simple system to use the current date and time to show me how recent this version is.
 
 On working with variables in bash you could write a book by it self. I will omit that.
-Here I specify an array containing IP addresses of the hosts I want to check and for readability I continue on a new line after each IP address until the end of the array. The items in the array in this example are separated by a space. For readability purposes I've added line breaks '\' to continue on a new line.
+Here I specify an array containing IP addresses of the hosts I want to check and for readability I continue on a new line after each IP address until the end of the array. The items in the array in this example are separated by a space. For readability purposes I've added line breaks '\\' to continue on a new line.
 
 ## The script
 
@@ -87,7 +87,9 @@ Now let us have a look at the script and break it down in chunks. I will go over
 ```
 The header with some information on the purpose and the usage of the script.
 
-I do not like to come up with version numbers that only show a sequential number. It needs to have a little more meeting. For this purpose I use a combination of date and time in a reverse notation: `yyyymmdd-hhmm` Why? Because there is only one unique point in time and the chance of having multiple versions to try out on one day in one hour because you are testing it out, is more than likely to happen. This makes it easier for me to understand when I saved and commited this version and when.
+I do not like to come up with version numbers that only show a sequential number. It needs to have a little more meeting. For this purpose I use a combination of date and time in a reverse notation: `yyyymmdd-hhmm` 
+
+Why? Because there is only one unique point in time and the chance of having multiple versions to try out on one day in one hour because you are testing it out, is more than likely to happen. This makes it easier for me to understand when I saved and commited this version and when.
 
 ```bash
 # Let's begin ...
