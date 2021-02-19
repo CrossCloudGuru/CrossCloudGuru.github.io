@@ -23,18 +23,18 @@ There are a vast number of reasons why overviews like these are of interest when
 
 The goal of this article is using this example to explain how I made the script. With some imagination you can turn it to fit another goal but with a similar approach. Let's crack on...
 
-In the end you will need to have two files:  
+In the end you will need to have two files:
 1. Input file
 2. The script
 
 The script is where all the magic happens and the input file contains the array of hosts that need to be checked. I had the requirement to have one script that can be used for multiple environments e.g. groups of hosts.
 
-When the script is executed, it will generate three types of output:  
+When the script is executed, it will generate three types of output:
 1.  Per host an output file with all the security upates for that host
 2.  It will genarate a file that lists all hosts that have a reboot already pending
 3.  It will generate a file combining all the information from the previous outputs into one
 
-Assumptions:  
+Assumptions:
 * For authentication I assume SSH keys are used to access the targeted hosts.
 * The ssh key should already be loaded to your ssh-agent before executing the script.
 
