@@ -3,7 +3,7 @@ title: "Configure your Azure Portal Time Format"
 original_date_label: :2021-05-25T23:02:59-04:0
 last_modified_at: 2021-05-25T23:03:04:00 
 #classes: wide
-#toc: false               # Override from default setting: True
+toc: false               # Override from default setting: True
 #toc_icon: stream         # Override from default setting: stream
 categories:
   - azure
