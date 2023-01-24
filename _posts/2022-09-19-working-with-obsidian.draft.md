@@ -15,6 +15,7 @@ excerpt: "Working with Obsidian"
 
 # gcloud Commands
 
+:rdt20230124-17
 
 Alerting email address for quicklabs
 ```
